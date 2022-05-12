@@ -1,4 +1,4 @@
-# Chatting App
+# Messenger App
 A Web Application To Chat With People Online
 
 # Tech Stack
