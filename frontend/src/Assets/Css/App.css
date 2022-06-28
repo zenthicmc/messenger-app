@@ -1,0 +1,49 @@
+:root {
+	--color-primary: #4E426D;
+	--color-secondary: #3BA58A;			
+}
+
+* {
+   padding: 0;
+   margin: 0;
+   font-family: "Poppins", sans-serif;
+}
+
+body {
+	background-color: #F5F7FB;
+}
+
+a {
+   text-decoration: none;
+	color: #000;
+}
+
+
+.nav-link:hover {
+	color: var(--color-secondary);
+}
+
+.logo {
+   width: 40px;
+   height: 40px;
+}
+
+.brand {
+   font-size: 1.5rem;
+   font-weight: bold;
+   padding: 5px;
+}
+
+.button {
+	width: 150px;
+	height: 50px;
+	padding: 10px 0px;
+}
+
+.button:hover {
+   opacity: 0.94;
+}
+
+.box-login {
+   width: 35%;
+}
