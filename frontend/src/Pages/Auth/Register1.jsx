@@ -10,13 +10,6 @@ const Register1 = () => {
    const [password, setPassword] = useState("");
    const [confirmPassword, setConfirmPassword] = useState("");
 
-   useEffect(() => {
-      const user = localStorage.getItem("user");
-      if (user) {
-         navigate("/register/2");
-      }
-   })
-
    const registerStore = (e) => {
       e.preventDefault();
       if (password !== confirmPassword) {

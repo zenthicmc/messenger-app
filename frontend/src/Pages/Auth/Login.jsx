@@ -8,7 +8,7 @@ const Login = () => {
       e.preventDefault();
       const token = captchaRef.current.getValue();
       captchaRef.current.reset();
-      console.log(token);
+
    };
 
    return (
