@@ -1,0 +1,49 @@
+# API 1 (Data User)
+POST, GET, PUT DELETE endpoint: /api/user # bebas boleh diganti
+{
+	"username": "zenthic", #pk (unique)
+	"firstname": "Jagad",
+	"lastname": "Raya",
+	"email": "jagadraya388@gmail.com",
+	"password": "jagadraya", # akan di enkripsi di backend
+	"profile": "gambar.jpg", # nama file gambar
+	"online": "true", # default: false
+	"status": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever" # berisi keterangan tentang user (akan ditampilkan di profil user)
+}
+
+# API 2 (Data Gambar Profile User)
+# api ini berfungsi untuk mengupload gambar ke backend
+# api ini hanya menerima 1 inputan yaitu image yang berbentuk object
+POST, GET, PUT, DELETE endpoint: /api/user/<username>/image # bebas boleh diganti
+{
+	"image": {}
+}
+
+# API 3
+# validasi email
+# mengecek apakah ada email yang sama di database
+GET endpoint: /api/user/email/<email>
+{
+	success: "true",
+	message: "Email is valid"
+}
+{
+	success: "false",
+	message: "Email is invalid"
+}
+
+# API 4
+# validasi username
+# mengecek apakah ada username yang sama di database
+GET endpoint: /api/user/username/<username>
+{
+	success: "true",
+	message: "Username is valid"
+}
+{
+	success: "false",
+	message: "Username is invalid"
+}
+
+
+
