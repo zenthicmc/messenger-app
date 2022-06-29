@@ -23,6 +23,10 @@
 	color: var(--color-secondary);
 }
 
+.t-secondary:hover {
+	color: var(--color-secondary);
+}
+
 .mt-6 {
 	margin-top: 5rem;
 }

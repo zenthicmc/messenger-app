@@ -1,4 +1,5 @@
 import ChatLogo from "../Assets/Img/chat.png";
+import { Link } from "react-router-dom";
 
 const AuthNavbar = () => {
    return (
@@ -12,14 +13,14 @@ const AuthNavbar = () => {
                <div className="col-lg-3">
                   <ul className="d-flex justify-content-between list-unstyled mt-2 float-end">
                      <li>
-                        <a href="" className="button b-primary text-white rounded-5 px-4 me-3">
+                        <Link to="/login" className="button b-primary text-white rounded-5 px-4 me-3">
                            LOGIN
-                        </a>
+                        </Link>
                      </li>
                      <li>
-                        <a href="" className="button b-secondary text-white rounded-5 px-4">
+                        <Link to="/register" className="button b-secondary text-white rounded-5 px-4">
                            REGISTER
-                        </a>
+                        </Link>
                      </li>
                   </ul>
                </div>

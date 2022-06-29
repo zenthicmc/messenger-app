@@ -1,12 +1,17 @@
-import ReCaptchaV2 from 'react-google-recaptcha'
-
-const loginCheck = (e) => {
-	e.preventDefault();
-	console.log(process.env.SITE_KEY);
-}
+import React, { useRef } from "react";
+import ReCaptchaV2 from "react-google-recaptcha";
+import { Link } from "react-router-dom";
 
 const Login = () => {
-	return (
+   const captchaRef = useRef(null);
+   const loginCheck = (e) => {
+      e.preventDefault();
+      const token = captchaRef.current.getValue();
+      captchaRef.current.reset();
+      console.log(token);
+   };
+
+   return (
       <div>
          <div className="container">
             <div className="row mt-5">
@@ -17,7 +22,13 @@ const Login = () => {
                   <form className="mt-5" onSubmit={loginCheck}>
                      <div className="form-group px-3">
                         <label htmlFor="email">Email</label>
-                        <input type="email" className="form-input" id="email" />
+                        <input
+                           type="email"
+                           className="form-input"
+                           id="email"
+                           autoComplete="off"
+                           required
+                        />
                      </div>
                      <div className="form-group px-3 mt-3">
                         <label htmlFor="password">Password</label>
@@ -25,10 +36,16 @@ const Login = () => {
                            type="password"
                            className="form-input"
                            id="password"
+                           autoComplete="off"
+                           required
                         />
                      </div>
                      <div className="form-group px-3 mt-3">
-                        {/* <ReCaptchaV2 sitekey={process.env.SITE_KEY} /> */}
+                        <ReCaptchaV2
+                           sitekey={process.env.REACT_APP_SITE_KEY}
+                           size={"normal"}
+                           ref={captchaRef}
+                        />
                      </div>
                      <div className="form-group px-3 mt-4">
                         <input
@@ -38,8 +55,10 @@ const Login = () => {
                         />
                      </div>
                      <p className="text-center mt-2">
-                        Not yet registered? register{" "}
-                        <span className="t-secondary">here</span>
+                        Not yet registered? login
+                        <Link to="/register" className="t-secondary">
+                           &nbsp;here
+                        </Link>
                      </p>
                   </form>
                </div>
@@ -47,6 +66,6 @@ const Login = () => {
          </div>
       </div>
    );
-}
+};
 
 export default Login;
