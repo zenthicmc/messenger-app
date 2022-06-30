@@ -1,4 +1,5 @@
 import ChatLogo from '../Assets/Img/chat.png';
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
 	return (
@@ -6,8 +7,10 @@ const Navbar = () => {
          <div className="container">
             <div className="row mt-3">
                <div className="col-lg-8 d-flex">
-                  <img src={ChatLogo} alt={"logo"} className="logo"></img>
-                  <h2 className="ms-3 brand">Messenger</h2>
+                  <Link to="/" className="d-flex brand">
+                     <img src={ChatLogo} alt={"logo"} className="logo"></img>
+                     <h2 className="ms-3 brand-title">Messenger</h2>
+                  </Link>
                </div>
                <div className="col-lg-4">
                   <ul className="d-flex justify-content-between list-unstyled p-2">
