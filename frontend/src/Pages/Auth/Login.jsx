@@ -13,8 +13,8 @@ const Login = () => {
    return (
       <div>
          <div className="container">
-            <div className="row mt-5">
-               <div className="col-lg-4 bg-white shadow m-auto rounded-4 p-4">
+            <div className="row mt-5 mb-5">
+               <div className="col-lg-4 bg-white box shadow m-auto rounded-4 p-4">
                   <h4 className="text-center fw-semibold mt-4">
                      Login With Your Account
                   </h4>
