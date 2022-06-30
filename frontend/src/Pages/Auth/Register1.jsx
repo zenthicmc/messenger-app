@@ -10,6 +10,13 @@ const Register1 = () => {
    const [password, setPassword] = useState("");
    const [confirmPassword, setConfirmPassword] = useState("");
 
+   useEffect(() => {
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (user) {
+         navigate("/register/2");
+      }
+   });
+
    const registerStore = (e) => {
       e.preventDefault();
       if (password !== confirmPassword) {
@@ -108,7 +115,7 @@ const Register1 = () => {
                            value="Next"
                         />
                      </div>
-                     <p className="text-center mt-2">
+                     <p className="text-center mt-3">
                         Already registered? login
                         <Link to="/login" className="t-secondary">
                            &nbsp;here

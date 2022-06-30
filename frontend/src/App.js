@@ -1,4 +1,3 @@
-import './Assets/Css/App.css';
 import "./Assets/Css/Utilities.css";
 import Navbar from './Components/Navbar';
 import AuthNavbar from './Components/AuthNavbar';

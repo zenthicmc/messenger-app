@@ -23,6 +23,8 @@ const Register3 = () => {
       data.profile = image.name;
       localStorage.setItem("user", JSON.stringify(data));
       localStorage.setItem("image", image);
+      localStorage.removeItem("user");
+      localStorage.removeItem("image");
       alert("Register Success");
       navigate("/login");
    };
@@ -45,16 +47,16 @@ const Register3 = () => {
 
    return (
       <div>
-         <div className="container">
+         <div className="container mb-5">
             <div className="row mt-5">
-               <div className="col-lg-7 bg-white shadow m-auto rounded-4 p-4">
+               <div className="col-lg-7 bg-white shadow m-auto rounded-4 p-4 box">
                   <h4 className="text-center fw-semibold mt-4">
                      Register Your Account
                   </h4>
                   <form className="mt-5" onSubmit={registerStore}>
-                     <div className="row justify-content-center">
+                     <div className="profile">
                         <div
-                           className="col-lg-3 profile-upload"
+                           className="profile-upload"
                            id="profile-upload"
                         >
                            <input
@@ -66,17 +68,17 @@ const Register3 = () => {
                            />
                            <button
                               type="button"
-                              className="border-0 bg-white"
+                              className="border-0 bg-white w-100"
                               onClick={onClick}
                            >
                               <img
                                  src={profile}
                                  alt="imgUpload"
-                                 className="w-100"
+                                 className="profile-img"
                               />
                            </button>
                         </div>
-                        <div className="col-lg-6 mt-5">
+                        <div className="col-lg-7 mt-5 profile-desc">
                            <h4 className="fw-bold">
                               Upload your profile picture
                            </h4>
@@ -85,14 +87,14 @@ const Register3 = () => {
                            </p>
                         </div>
                      </div>
-                     <div className="form-group px-3 mt-5">
+                     <div className="form-group px-3 button-upload">
                         <input
                            type="submit"
                            className="button b-primary text-white rounded-3 border-0 w-100"
                            value="Finish"
                         />
                      </div>
-                     <p className="text-center mt-2">
+                     <p className="text-center mt-3">
                         Already registered? login
                         <Link to="/login" className="t-secondary">
                            &nbsp;here

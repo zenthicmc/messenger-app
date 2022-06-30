@@ -8,7 +8,6 @@ const Login = () => {
       e.preventDefault();
       const token = captchaRef.current.getValue();
       captchaRef.current.reset();
-
    };
 
    return (
@@ -54,7 +53,7 @@ const Login = () => {
                            value="Login"
                         />
                      </div>
-                     <p className="text-center mt-2">
+                     <p className="text-center mt-3">
                         Not yet registered? login
                         <Link to="/register" className="t-secondary">
                            &nbsp;here

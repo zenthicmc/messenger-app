@@ -52,7 +52,7 @@ const Register2 = () => {
                            value="Next"
                         />
                      </div>
-                     <p className="text-center mt-2">
+                     <p className="text-center mt-3">
                         Already registered? login
                         <Link to="/login" className="t-secondary">
                            &nbsp;here
