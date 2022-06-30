@@ -9,6 +9,7 @@ POST, GET, PUT DELETE endpoint: /api/user # bebas boleh diganti
 	"profile": "gambar.jpg", # nama file gambar
 	"online": "true", # default: false
 	"status": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever" # berisi keterangan tentang user (akan ditampilkan di profil user)
+	"token": "QtdWbBPl8W7HHfmvJ6FcQtdWbBPl8W7HHfmvJ6FcQtdWbBPl8W7HHfmvJ6FcQtdWbBPl8W7HHfmvJ6FcQtdWbBPl8W7HHfmvJ6Fc"
 }
 
 # API 2 (Data Gambar Profile User)
