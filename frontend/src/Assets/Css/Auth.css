@@ -37,8 +37,8 @@ a {
    padding: 5px;
 }
 
-
-.profile {
+.profile-auth {
+   width: 100%;
    display: flex;
    justify-content: space-between;
 }
@@ -60,7 +60,7 @@ a {
 
 /* media screen on 768px */
 @media screen and (max-width: 768px) {
-   .profile {
+   .profile-auth {
       flex-direction: column;
    }
 
@@ -89,7 +89,7 @@ a {
 
 /* media screen on 1280px */
 @media screen and (max-width: 1280px) and (min-width: 768px) {
-   .profile {
+   .profile-auth{
       flex-direction: column;
    }
 

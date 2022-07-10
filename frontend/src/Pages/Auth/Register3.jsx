@@ -18,17 +18,14 @@ const Register3 = () => {
       }
    });
 
-   const registerStore = (e) => {
+   const registerStore = async (e) => {
       e.preventDefault();
       const data = JSON.parse(localStorage.getItem("user"));
-      data.id = nanoid(16); 
-      data.profile = image.name;
-      localStorage.setItem("user", JSON.stringify(data));
-      localStorage.setItem("image", image);
-      localStorage.removeItem("user");
-      localStorage.removeItem("image");
+      const imageName = image.name;
+      // localStorage.removeItem("user");
       alert("Register Success");
-      navigate("/login");
+      // navigate("/login");
+      console.log(imageName);
    };
 
    const onClick = (e) => {
@@ -56,11 +53,8 @@ const Register3 = () => {
                      Register Your Account
                   </h4>
                   <form className="mt-5" onSubmit={registerStore}>
-                     <div className="profile">
-                        <div
-                           className="profile-upload"
-                           id="profile-upload"
-                        >
+                     <div className="profile-auth">
+                        <div className="profile-upload" id="profile-upload">
                            <input
                               type="file"
                               id="file"

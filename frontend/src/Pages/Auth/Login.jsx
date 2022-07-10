@@ -47,7 +47,7 @@ const Login = () => {
                      </div>
                      <div className="form-group px-3 mt-4">
                         <HCaptcha
-                           sitekey="3869b5ac-ddcb-4346-bcf8-820f87040d83"
+                           sitekey={process.env.REACT_APP_SITE_KEY}
                            onVerify={(token, ekey) =>
                               handleVerificationSuccess(token, ekey)
                            }
