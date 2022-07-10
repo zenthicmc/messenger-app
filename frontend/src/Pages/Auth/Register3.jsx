@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { nanoid } from "nanoid";
+import AuthNavbar from "../../Components/AuthNavbar";
 
 const Register3 = () => {
    const navigate = useNavigate();
    const [profile, setProfile] = useState(ProfileUpload);
    const [image, setImage] = useState(null);
+   const inputFile = useRef(null);
 
    useEffect(() => {
       const user = JSON.parse(localStorage.getItem("user"));
@@ -29,7 +31,6 @@ const Register3 = () => {
       navigate("/login");
    };
 
-   const inputFile = useRef(null);
    const onClick = (e) => {
       inputFile.current.click();
    };
@@ -47,8 +48,9 @@ const Register3 = () => {
 
    return (
       <div>
+         <AuthNavbar />
          <div className="container mb-5">
-            <div className="row mt-5">
+            <div className="row mt-6">
                <div className="col-lg-7 bg-white shadow m-auto rounded-4 p-4 box">
                   <h4 className="text-center fw-semibold mt-4">
                      Register Your Account
