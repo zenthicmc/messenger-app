@@ -1,0 +1,134 @@
+:root {
+   --color-primary: #4e426d;
+   --color-secondary: #3ba58a;
+}
+
+* {
+   padding: 0;
+   margin: 0;
+   font-family: "Poppins", sans-serif;
+}
+
+body {
+   background-color: #f5f7fb;
+}
+
+a {
+   text-decoration: none;
+   color: #000;
+}
+
+.nav-link:hover {
+   color: var(--color-secondary);
+}
+
+.logo {
+   width: 40px;
+   height: 40px;
+}
+
+.brand:hover {
+   color: black;
+}
+
+.brand-title {
+   font-size: 1.5rem;
+   font-weight: bold;
+   padding: 5px;
+}
+
+.button {
+   width: 150px;
+   height: 50px;
+   padding: 10px 0px;
+}
+
+.button:hover {
+   opacity: 0.94;
+}
+
+.profile {
+   display: flex;
+   justify-content: space-between;
+}
+
+.profile-upload {
+   width: 30%;
+   margin: auto;
+}
+
+.profile-img {
+   width: 180px;
+   height: 180px;
+   border-radius: 30px;
+}
+
+.button-upload {
+   margin-top: 30px;
+}
+
+/* media screen on 768px */
+@media screen and (max-width: 768px) {
+   .profile {
+      flex-direction: column;
+   }
+
+   .profile-upload {
+      width: 90%;
+      margin: auto;
+   }
+
+   .profile-desc {
+      width: 100%;
+      margin: auto;
+      margin-top: 40px;
+      text-align: center;
+   }
+
+   .box {
+      width: 90%;
+      background-color: red;
+   }
+
+   .profile-img {
+      width: 180px;
+      height: 180px;
+      border-radius: 30px;
+   }
+}
+
+/* media screen on 1280px */
+@media screen and (max-width: 1280px) and (min-width: 768px) {
+   .profile {
+      flex-direction: column;
+   }
+
+   .profile-upload {
+      width: 50%;
+      margin: auto;
+   }
+
+   .profile-desc {
+      width: 80%;
+      margin: auto;
+      margin-top: 40px;
+      text-align: center;
+   }
+
+   .box {
+      width: 50%;
+   }
+
+   .profile-img {
+      width: 180px;
+      height: 180px;
+      border-radius: 30px;
+   }
+
+   .button-upload {
+      margin-top: 20px;
+   }
+   
+}
+
+
