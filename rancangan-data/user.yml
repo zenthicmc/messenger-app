@@ -59,14 +59,14 @@ PUT endpoint: /api/user/login
 }
 # response json yang di kembalikan
 {
-	"success": "true",
+	"status": "success",
 	"message": "Login success"
 	"data" {
 		"token": "QtdWbBPl8W7HHfmvJ6FcQtdWbBPl8W7HHfmvJ6FcQtdWbBPl8W7HHfmvJ6FcQtdWbBPl8W7HHfmvJ6FcQtdWbBPl8W7HHfmvJ6Fc"
 	}
 }
 {
-	"success": "false",
+	"status": "fail",
 	"message": "Invalid username or password"
 }
 
