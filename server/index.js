@@ -3,6 +3,7 @@ const cors = require('cors')
 const app = express();
 const session = require('express-session')
 const flash = require('connect-flash')
+const morgan = require('morgan')
 
 //  Not use in react
 app.set('view engine', 'ejs')
@@ -23,13 +24,14 @@ app.use(express.static('public'));
 
 app.use(cors());
 
+app.use(morgan('dev'));
+
 app.use(session({
     secret: 'enroll',
     resave: false,
     saveUninitialized: true,
   }))
 app.use(flash());
-
 
 app.use(express.static('public'));
 
