@@ -45,6 +45,7 @@ exports.details = async (req, res) => {
 exports.store = async (req, res) => {
     try {
         const hashPassword = await bcrypt.hash(req.body.password, saltrounds);
+        
         const data = {
            username: req.body.username,
            firstname: req.body.firstname,
