@@ -48,8 +48,8 @@ exports.store = async (req, res) => {
             password: hashPassword,
             image: req.file.filename,
             online: false,
-            status: req.body.status || "",
-            token: req.body.token || ""
+            status: req.body.status,
+            token: req.body.token
         }
 
         User.create(user, (err, result) => {
