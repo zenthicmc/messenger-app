@@ -21,7 +21,18 @@ router.group('/api/user', router => {
         }
     });
 
-    const upload = multer({ storage: storage });
+    const isImage = (req, file, cb) => {
+        if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg') {
+            cb(null, true);
+        } else {
+            cb(new Error('Only images are allowed!'), false);
+        }
+    }
+
+    const upload = multer({ 
+        storage: storage,
+        fileFilter: isImage
+    });
 
     // router.get('/user', userController.add);
 
@@ -35,9 +46,9 @@ router.group('/api/user', router => {
     // Controller
     router.get('/:username', userController.details);
     
-    router.post('/', upload.single('image'), userController.store);
+    router.post('/', userController.store);
 
-    router.put('/:username', upload.single('image'), userController.update);
+    router.put('/:username', userController.update);
 
     router.delete('/:username', userController.destroy);
 

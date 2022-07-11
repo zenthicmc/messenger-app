@@ -28,7 +28,7 @@ app.use(session({
     saveUninitialized: true,
   }))
 app.use(flash());
-
+app.use(cors());
 
 app.use(express.static('public'));
 

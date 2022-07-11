@@ -2,13 +2,17 @@ import ProfileUpload from "../../Assets/Img/profile.jpg";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { nanoid } from "nanoid";
+import axios from "axios";
+import { v4 as uuid } from "uuid";
 import AuthNavbar from "../../Components/AuthNavbar";
+import { storage } from "../../firebase";
+import { ref, uploadBytes } from 'firebase/storage';
 
 const Register3 = () => {
    const navigate = useNavigate();
    const [profile, setProfile] = useState(ProfileUpload);
-   const [image, setImage] = useState(null);
+   const [image, setImage] = useState();
+   const [imageName, setImageName] = useState(uuid());
    const inputFile = useRef(null);
 
    useEffect(() => {
@@ -18,14 +22,34 @@ const Register3 = () => {
       }
    });
 
+   const uploadImage = async () => {
+      if (image == null) return;
+      const imageRef = ref(storage, `profile/${imageName}`);
+      await uploadBytes(imageRef, image).then(() => {
+         console.log("Uploaded");
+      })
+   }
+
    const registerStore = async (e) => {
       e.preventDefault();
       const data = JSON.parse(localStorage.getItem("user"));
-      const imageName = image.name;
-      // localStorage.removeItem("user");
-      alert("Register Success");
-      // navigate("/login");
-      console.log(imageName);
+      uploadImage();
+
+      await axios.post(`http://127.0.0.1:5000/api/user`, {
+         username: data.username,
+         firstname: data.firstname,
+         lastname: data.lastname,
+         email: data.email,
+         password: data.password,
+         image: imageName
+      })
+      .then(res => {
+        localStorage.removeItem("user");
+        alert("Register Success");
+        navigate("/login");
+      }).catch(err => {
+         console.log(err);
+      })
    };
 
    const onClick = (e) => {
@@ -37,7 +61,7 @@ const Register3 = () => {
       if (!fileObj || !fileObj.type.includes("image")) {
          return;
       }
-      setImage(fileObj);
+      setImage(e.target.files[0]);
       const fileLocation = URL.createObjectURL(fileObj);
       e.target.value = null;
       setProfile(fileLocation);
@@ -61,6 +85,7 @@ const Register3 = () => {
                               ref={inputFile}
                               onChange={handleFileChange}
                               className="d-none"
+                              name="image"
                            />
                            <button
                               type="button"
