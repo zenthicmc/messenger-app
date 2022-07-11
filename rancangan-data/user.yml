@@ -46,5 +46,29 @@ GET endpoint: /api/user/username/<username>
 	message: "Username is invalid"
 }
 
+# API 5
+#
+# login user
+#
+GET endpoint: /api/user/login
+# data yang dikirim
+{
+	"username": "zenthic",
+	"password": "jagadraya",
+	"token": "QtdWbBPl8W7HHfmvJ6FcQtdWbBPl8W7HHfmvJ6FcQtdWbBPl8W7HHfmvJ6FcQtdWbBPl8W7HHfmvJ6FcQtdWbBPl8W7HHfmvJ6Fc"
+}
+# response json yang di kembalikan
+{
+	"success": "true",
+	"message": "Login success"
+	"data" {
+		"token": "QtdWbBPl8W7HHfmvJ6FcQtdWbBPl8W7HHfmvJ6FcQtdWbBPl8W7HHfmvJ6FcQtdWbBPl8W7HHfmvJ6FcQtdWbBPl8W7HHfmvJ6Fc"
+	}
+}
+{
+	"success": "false",
+	"message": "Invalid username or password"
+}
+
 
 

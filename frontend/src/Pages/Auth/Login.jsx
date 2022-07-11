@@ -1,19 +1,25 @@
 import React, { useRef } from "react";
-import ReCaptchaV2 from "react-google-recaptcha";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { Link } from "react-router-dom";
+import AuthNavbar from "../../Components/AuthNavbar";
 
 const Login = () => {
    const captchaRef = useRef(null);
    const loginCheck = (e) => {
       e.preventDefault();
-      const token = captchaRef.current.getValue();
-      captchaRef.current.reset();
+      // const token = captchaRef.current.getValue();
+      // captchaRef.current.reset();
    };
+
+   const handleVerificationSuccess = (token, ekey) => {
+      console.log(token.substring(0, 255));
+   }; 
 
    return (
       <div>
+         <AuthNavbar />
          <div className="container">
-            <div className="row mt-5 mb-5">
+            <div className="row mt-6 mb-5">
                <div className="col-lg-4 bg-white box shadow m-auto rounded-4 p-4">
                   <h4 className="text-center fw-semibold mt-4">
                      Login With Your Account
@@ -39,11 +45,13 @@ const Login = () => {
                            required
                         />
                      </div>
-                     <div className="form-group px-3 mt-3">
-                        <ReCaptchaV2
+                     <div className="form-group px-3 mt-4">
+                        <HCaptcha
                            sitekey={process.env.REACT_APP_SITE_KEY}
-                           size={"normal"}
-                           ref={captchaRef}
+                           onVerify={(token, ekey) =>
+                              handleVerificationSuccess(token, ekey)
+                           }
+                           id="1212"
                         />
                      </div>
                      <div className="form-group px-3 mt-4">

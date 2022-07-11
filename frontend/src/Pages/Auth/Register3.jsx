@@ -2,12 +2,18 @@ import ProfileUpload from "../../Assets/Img/profile.jpg";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { nanoid } from "nanoid";
+import axios from "axios";
+import { v4 as uuid } from "uuid";
+import AuthNavbar from "../../Components/AuthNavbar";
+import { storage } from "../../firebase";
+import { ref, uploadBytes } from 'firebase/storage';
 
 const Register3 = () => {
    const navigate = useNavigate();
    const [profile, setProfile] = useState(ProfileUpload);
-   const [image, setImage] = useState(null);
+   const [image, setImage] = useState();
+   const [imageName, setImageName] = useState(uuid());
+   const inputFile = useRef(null);
 
    useEffect(() => {
       const user = JSON.parse(localStorage.getItem("user"));
@@ -16,20 +22,36 @@ const Register3 = () => {
       }
    });
 
-   const registerStore = (e) => {
+   const uploadImage = async () => {
+      if (image == null) return;
+      const imageRef = ref(storage, `profile/${imageName}`);
+      await uploadBytes(imageRef, image).then(() => {
+         console.log("Uploaded");
+      })
+   }
+
+   const registerStore = async (e) => {
       e.preventDefault();
       const data = JSON.parse(localStorage.getItem("user"));
-      data.id = nanoid(16); 
-      data.profile = image.name;
-      localStorage.setItem("user", JSON.stringify(data));
-      localStorage.setItem("image", image);
-      localStorage.removeItem("user");
-      localStorage.removeItem("image");
-      alert("Register Success");
-      navigate("/login");
+      uploadImage();
+
+      await axios.post(`http://127.0.0.1:5000/api/user`, {
+         username: data.username,
+         firstname: data.firstname,
+         lastname: data.lastname,
+         email: data.email,
+         password: data.password,
+         image: imageName
+      })
+      .then(res => {
+        localStorage.removeItem("user");
+        alert("Register Success");
+        navigate("/login");
+      }).catch(err => {
+         console.log(err);
+      })
    };
 
-   const inputFile = useRef(null);
    const onClick = (e) => {
       inputFile.current.click();
    };
@@ -39,7 +61,7 @@ const Register3 = () => {
       if (!fileObj || !fileObj.type.includes("image")) {
          return;
       }
-      setImage(fileObj);
+      setImage(e.target.files[0]);
       const fileLocation = URL.createObjectURL(fileObj);
       e.target.value = null;
       setProfile(fileLocation);
@@ -47,24 +69,23 @@ const Register3 = () => {
 
    return (
       <div>
+         <AuthNavbar />
          <div className="container mb-5">
-            <div className="row mt-5">
+            <div className="row mt-6">
                <div className="col-lg-7 bg-white shadow m-auto rounded-4 p-4 box">
                   <h4 className="text-center fw-semibold mt-4">
                      Register Your Account
                   </h4>
                   <form className="mt-5" onSubmit={registerStore}>
-                     <div className="profile">
-                        <div
-                           className="profile-upload"
-                           id="profile-upload"
-                        >
+                     <div className="profile-auth">
+                        <div className="profile-upload" id="profile-upload">
                            <input
                               type="file"
                               id="file"
                               ref={inputFile}
                               onChange={handleFileChange}
                               className="d-none"
+                              name="image"
                            />
                            <button
                               type="button"

@@ -1,0 +1,23 @@
+#profile-btn {
+		width: 50%;
+}
+
+@media screen and (max-width: 768px) {
+	#profile-row {
+		display: flex;
+		flex-direction: column;
+	}
+
+	#profile {
+		margin-bottom: 50px;
+	}
+
+	#profile-btn {
+		width: 100%;
+	}
+
+	.profile-img {
+		width: 100%;
+		height: auto;
+	}
+}
