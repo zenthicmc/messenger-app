@@ -50,7 +50,7 @@ GET endpoint: /api/user/username/<username>
 #
 # login user
 #
-GET endpoint: /api/user/login
+PUT endpoint: /api/user/login
 # data yang dikirim
 {
 	"username": "zenthic",
