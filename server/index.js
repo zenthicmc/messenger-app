@@ -2,12 +2,8 @@ const express = require('express')
 const cors = require('cors')
 const app = express();
 const session = require('express-session')
-const flash = require('connect-flash')
+const morgan = require('morgan') 
 
-//  Not use in react
-app.set('view engine', 'ejs')
-//
- 
 require('dotenv').config();
 const port = process.env.PORT || 3000
 
@@ -20,14 +16,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false })); 
 
 app.use(express.static('public'));
+
+app.use(morgan('dev'))
+
 app.use(cors());
 
 app.use(session({
-    secret: 'enroll',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
   }))
-app.use(flash());
 
 app.use(express.static('public'));
 
