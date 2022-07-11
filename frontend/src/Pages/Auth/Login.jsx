@@ -62,7 +62,7 @@ const Login = () => {
                         />
                      </div>
                      <p className="text-center mt-3">
-                        Not yet registered? login
+                        Not yet registered? register
                         <Link to="/register" className="t-secondary">
                            &nbsp;here
                         </Link>
