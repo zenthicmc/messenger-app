@@ -6,38 +6,38 @@ const Navbar = () => {
       <nav>
          <div className="container">
             <div className="row mt-3">
-               <div className="col-lg-8 d-flex">
+               <div className="col-lg-8 d-flex mt-2">
                   <Link to="/" className="d-flex brand">
                      <img src={ChatLogo} alt={"logo"} className="logo"></img>
                      <h2 className="ms-3 brand-title">Messenger</h2>
                   </Link>
                </div>
-               <div className="col-lg-4">
+               <div className="col-lg-4 mt-2">
                   <ul className="d-flex justify-content-between list-unstyled p-2">
                      <li>
-                        <a href="" className="nav-link">
+                        <Link to="/" className="nav-link">
                            HOME
-                        </a>
+                        </Link>
                      </li>
                      <li>
-                        <a href="" className="nav-link">
+                        <Link to="/chat" className="nav-link">
                            CHAT
-                        </a>
+                        </Link>
                      </li>
                      <li>
-                        <a href="" className="nav-link">
+                        <Link to="/setting" className="nav-link">
                            SETTINGS
-                        </a>
+                        </Link>
                      </li>
                      <li>
-                        <a href="" className="nav-link">
-                           <i class="fa-solid fa-magnifying-glass"></i>
-                        </a>
+                        <Link to="" className="nav-link">
+                           <i className="fa-solid fa-bell"></i>
+                        </Link>
                      </li>
                      <li>
-                        <a href="" className="nav-link">
-                           <i class="fa-solid fa-bell"></i>
-                        </a>
+                        <Link to="/logout" className="nav-link">
+                           <i className="fa-solid fa-right-from-bracket"></i>
+                        </Link>
                      </li>
                   </ul>
                </div>

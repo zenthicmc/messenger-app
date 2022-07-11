@@ -35,9 +35,9 @@ router.group('/api/user', router => {
     // Controller
     router.get('/:username', userController.details);
     
-    router.post('/', upload.single('image'), userController.store);
+    router.post('/', userController.store);
 
-    router.put('/:username', upload.single('image'), userController.update);
+    router.put('/:username', userController.update);
 
     router.delete('/:username', userController.destroy);
 

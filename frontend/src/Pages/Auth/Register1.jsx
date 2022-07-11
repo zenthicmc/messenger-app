@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import AuthNavbar from "../../Components/AuthNavbar";
 
 const Register1 = () => {
    const navigate = useNavigate();
@@ -37,9 +38,10 @@ const Register1 = () => {
 
    return (
       <div>
+         <AuthNavbar />
          <div className="container">
-            <div className="row mt-5">
-               <div className="col-lg-7 bg-white shadow m-auto rounded-4 p-4">
+            <div className="row mt-6">
+               <div className="col-lg-7 bg-white shadow m-auto rounded-4 p-4 box">
                   <h4 className="text-center fw-semibold mt-4">
                      Register Your Account
                   </h4>
@@ -104,7 +106,9 @@ const Register1 = () => {
                               autoComplete="off"
                               required
                               value={confirmPassword}
-                              onChange={(e) => setConfirmPassword(e.target.value)}
+                              onChange={(e) =>
+                                 setConfirmPassword(e.target.value)
+                              }
                            />
                         </div>
                      </div>
