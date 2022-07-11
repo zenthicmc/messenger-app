@@ -53,8 +53,8 @@ exports.store = async (req, res) => {
            password: hashPassword,
            image: req.body.image,
            online: false,
-           status: req.body.status,
-           token: req.body.token,
+           status: "",
+           token: "",
         };
 
         User.create(data, (err, result) => {
