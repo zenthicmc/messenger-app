@@ -2,7 +2,6 @@ require('../../config/database');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const saltrounds = 10;
-const fs = require('fs')
 
 exports.index = async (req, res) => {
     const users = await User.find();
