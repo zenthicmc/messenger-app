@@ -1,7 +1,10 @@
+import { async } from "@firebase/util";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import AuthNavbar from "../../Components/AuthNavbar";
+import MySwal from "../../sweetalert";
 
 const Register1 = () => {
    const navigate = useNavigate();
@@ -10,7 +13,8 @@ const Register1 = () => {
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
    const [confirmPassword, setConfirmPassword] = useState("");
-
+   const url = process.env.REACT_APP_BACKEND_URL;
+   
    useEffect(() => {
       const user = JSON.parse(localStorage.getItem("user"));
       if (user) {
@@ -18,22 +22,40 @@ const Register1 = () => {
       }
    });
 
-   const registerStore = (e) => {
+   const registerStore = async (e) => {
       e.preventDefault();
       if (password !== confirmPassword) {
-         alert("Password and Confirm Password must be same");
+         MySwal.fire({
+            title: "Error",
+            text: "Passwords do not match",
+            icon: "error",
+            confirmButtonColor: "#4E426D",
+         });
          return;
       }
 
-      const data = JSON.stringify({
-         firstname: firstname,
-         lastname: lastname,
-         email: email,
-         password: password
-      });
+      await axios.get(`${url}/api/user/email/${email}`).then(res => {
+         if (res.data.status === 'fail') {
+            MySwal.fire({
+               title: "Error",
+               text: "Email already registered",
+               icon: "error",
+               confirmButtonColor: "#4E426D",
+            });
+            return false;
+         }
+         else {
+            const data = JSON.stringify({
+               firstname: firstname,
+               lastname: lastname,
+               email: email,
+               password: password,
+            });
 
-      localStorage.setItem("user", data);
-      navigate("/register/2");
+            localStorage.setItem("user", data);
+            navigate("/register/2");
+         }
+      })
    };
 
    return (

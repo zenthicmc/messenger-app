@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import AuthNavbar from "../../Components/AuthNavbar";
+import MySwal from "../../sweetalert";
 
 const Register2 = () => {
    const navigate = useNavigate();
    const [username, setUsername] = useState("");
+   const url = process.env.REACT_APP_BACKEND_URL;
 
    useEffect(() => {
       const user = JSON.parse(localStorage.getItem("user"));
@@ -14,12 +17,25 @@ const Register2 = () => {
       }
    })
 
-   const registerStore = (e) => {
+   const registerStore = async (e) => {
       e.preventDefault();
-      const data = JSON.parse(localStorage.getItem("user"));
-      data.username = username;
-      localStorage.setItem("user", JSON.stringify(data));
-      navigate("/register/3");
+      await axios.get(`${url}/api/user/username/${username}`).then(res => {
+         if (res.data.status === 'fail') {
+            MySwal.fire({
+               title: "Error",
+               text: "Username already registered",
+               icon: "error",
+               confirmButtonColor: "#4E426D",
+            });
+            return false;
+         }
+         else {
+            const data = JSON.parse(localStorage.getItem("user"));
+            data.username = username;
+            localStorage.setItem("user", JSON.stringify(data));
+            navigate("/register/3");
+         }
+      })
    };
 
    return (

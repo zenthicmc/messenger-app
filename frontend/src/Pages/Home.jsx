@@ -4,8 +4,8 @@ const Home = () => {
 	return (
       <div>
          <Navbar />
-         <div class="container mt-4">
-            <div class="row">
+         <div className="container mt-4">
+            <div className="row">
                <h1>ini halaman home</h1>
             </div>
          </div>

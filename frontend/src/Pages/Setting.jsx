@@ -37,15 +37,15 @@ const Setting = () => {
          <Navbar />
          <div className="container mt-4 mb-4">
             <div className="col-lg-12 bg-white shadow rounded-4 px-4 py-5">
-               <div class="row">
-                  <div class="col-lg-12">
+               <div className="row">
+                  <div className="col-lg-12">
                      <h3 className="text-center fw-bold">
                         Change Your Profile
                      </h3>
                   </div>
                   <form>
-							<div class="row justify-content-center mt-5" id="profile-row">
-								<div class="col-lg-2 me-5 mt-3" id="profile">
+							<div className="row justify-content-center mt-5" id="profile-row">
+								<div className="col-lg-2 me-5 mt-3" id="profile">
 									<input
 										type="file"
 										id="file"
@@ -66,9 +66,9 @@ const Setting = () => {
 										/>
 									</button>
 								</div>
-								<div class="col-lg-7">
-									<div class="row mb-2">
-										<div class="col-lg-6">
+								<div className="col-lg-7">
+									<div className="row mb-2">
+										<div className="col-lg-6">
 											<label htmlFor="firstname">Firstname</label>
 											<input
 												type="text"
@@ -80,7 +80,7 @@ const Setting = () => {
 												onChange={(e) => setFirstName(e.target.value)}
 											/>
 										</div>
-										<div class="col-lg-6">
+										<div className="col-lg-6">
 											<label htmlFor="lastname">Lastname</label>
 											<input
 												type="text"
@@ -93,8 +93,8 @@ const Setting = () => {
 											/>
 										</div>
 									</div>
-									<div class="row mb-2">
-										<div class="col-lg-12">
+									<div className="row mb-2">
+										<div className="col-lg-12">
 											<label htmlFor="lastname">Email</label>
 											<input
 												type="email"
@@ -107,8 +107,8 @@ const Setting = () => {
 											/>
 										</div>
 									</div>
-									<div class="row mb-2">
-										<div class="col-lg-6">
+									<div className="row mb-2">
+										<div className="col-lg-6">
 											<label htmlFor="password">Password</label>
 											<input
 												type="password"
@@ -120,7 +120,7 @@ const Setting = () => {
 												onChange={(e) => setPassword(e.target.value)}
 											/>
 										</div>
-										<div class="col-lg-6">
+										<div className="col-lg-6">
 											<label htmlFor="cnfrmPassword">Confirm Password</label>
 											<input
 												type="password"
@@ -135,8 +135,8 @@ const Setting = () => {
 									</div>
 								</div>
 							</div>
-							<div class="row mt-5 mb-3">
-								<div class="col-lg-10 m-auto">
+							<div className="row mt-5 mb-3">
+								<div className="col-lg-10 m-auto">
 									<input
 										type="submit"
 										className="button b-primary text-white rounded-3 border-0 w-100"
