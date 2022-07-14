@@ -1,18 +1,19 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { Link } from "react-router-dom";
 import AuthNavbar from "../../Components/AuthNavbar";
 
 const Login = () => {
    const captchaRef = useRef(null);
+   const [ token, setToken ] = useState(null);
+
    const loginCheck = (e) => {
       e.preventDefault();
-      // const token = captchaRef.current.getValue();
-      // captchaRef.current.reset();
+      if(!token) return
    };
 
    const handleVerificationSuccess = (token, ekey) => {
-      console.log(token.substring(0, 255));
+      setToken(token.substring(0, 255));
    }; 
 
    return (

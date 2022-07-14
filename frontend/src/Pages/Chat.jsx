@@ -99,7 +99,7 @@ const Chat = () => {
                      />
                   </div>
                   <div className="input-area w-100">
-                     <div class="col-lg-12 mt-2">
+                     <div className="col-lg-12 mt-2">
                         <form className="w-100 d-flex justify-content-between">
                            <button
                               type="button"
@@ -107,7 +107,7 @@ const Chat = () => {
                               style={{ width: "50px" }}
                            >
                               <i
-                                 class="fa-solid fa-face-grin text-white mt-1"
+                                 className="fa-solid fa-face-grin text-white mt-1"
                                  style={{ fontSize: "22px" }}
                               ></i>
                            </button>
@@ -126,7 +126,7 @@ const Chat = () => {
                               style={{ width: "50px" }}
                            >
                               <i
-                                 class="fa-solid fa-paperclip text-white mt-1"
+                                 className="fa-solid fa-paperclip text-white mt-1"
                                  style={{ fontSize: "20px" }}
                               ></i>
                            </button>
@@ -136,7 +136,7 @@ const Chat = () => {
                               style={{ width: "50px" }}
                            >
                               <i
-                                 class="fa-solid fa-paper-plane text-white mt-1"
+                                 className="fa-solid fa-paper-plane text-white mt-1"
                                  style={{ fontSize: "20px" }}
                               ></i>
                            </button>

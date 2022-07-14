@@ -4,7 +4,7 @@ const Message = (props) => {
    return (
       <div>
          {props.sender ? (
-            <div class="message-sender">
+            <div className="message-sender">
                <p className="text-white text-start">{props.value}</p>
                <span className="time">11:00</span>
             </div>
