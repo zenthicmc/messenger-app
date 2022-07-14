@@ -4,9 +4,9 @@ const router = express.Router();
 const userController = require('../controllers/userController');
 const userValidator = require('../middlewares/validators/userValidator');
 
-router.get('/', async (req, res) => {
-    res.send("root");
-})
+// router.get('/', async (req, res) => {
+//     res.send("root");
+// })
 
 // USER API GROUP
 router.group('/api/user', router => {
