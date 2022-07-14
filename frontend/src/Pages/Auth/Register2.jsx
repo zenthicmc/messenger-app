@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import AuthNavbar from "../../Components/AuthNavbar";
-import MySwal from "../../sweetalert";
+import MySwal from "../../Utils/sweetalert";
 
 const Register2 = () => {
    const navigate = useNavigate();

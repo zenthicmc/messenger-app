@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { v4 as uuid } from "uuid";
 import AuthNavbar from "../../Components/AuthNavbar";
-import { storage } from "../../firebase";
+import { storage } from "../../Utils/firebase";
 import { ref, uploadBytes } from 'firebase/storage';
-import MySwal from "../../sweetalert";
+import MySwal from "../../Utils/sweetalert";
 
 const Register3 = () => {
    const navigate = useNavigate();

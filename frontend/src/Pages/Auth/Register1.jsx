@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import AuthNavbar from "../../Components/AuthNavbar";
-import MySwal from "../../sweetalert";
+import MySwal from "../../Utils/sweetalert";
 
 const Register1 = () => {
    const navigate = useNavigate();
