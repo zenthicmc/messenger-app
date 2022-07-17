@@ -3,13 +3,13 @@ import { getAnalytics } from "firebase/analytics";
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBT3EhmRF_Lr80NTJ5Xw6wHN6uzv4Jqjzk",
-  authDomain: "messenger-40dee.firebaseapp.com",
-  projectId: "messenger-40dee",
-  storageBucket: "messenger-40dee.appspot.com",
-  messagingSenderId: "912768766309",
-  appId: "1:912768766309:web:46bb94f5c252b1b640118c",
-  measurementId: "G-NCXWG21FK8"
+   apiKey: process.env.REACT_APP_apiKey,
+   authDomain: process.env.REACT_APP_authDomain,
+   projectId: process.env.REACT_APP_projectId,
+   storageBucket: process.env.REACT_APP_storageBucket,
+   messagingSenderId: process.env.REACT_APP_messagingSenderId,
+   appId: process.env.REACT_APP_appId,
+   measurementId: process.env.REACT_APP_measurementId,
 };
 
 // Initialize Firebase

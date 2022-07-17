@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import AuthNavbar from "../../Components/AuthNavbar";
 import MySwal from "../../Utils/sweetalert";
+import axios from "../../Api/axios";
 
 const Register2 = () => {
    const navigate = useNavigate();
    const [username, setUsername] = useState("");
-   const url = process.env.REACT_APP_BACKEND_URL;
 
    useEffect(() => {
       const user = JSON.parse(localStorage.getItem("user"));
@@ -19,7 +18,7 @@ const Register2 = () => {
 
    const registerStore = async (e) => {
       e.preventDefault();
-      await axios.get(`${url}/api/user/username/${username}`).then(res => {
+      await axios.get(`/api/user/username/${JSON.stringify(username)}`).then(res => {
          if (res.data.status === 'fail') {
             MySwal.fire({
                title: "Error",
