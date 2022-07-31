@@ -3,6 +3,7 @@ const cors = require('cors')
 const app = express();
 const session = require('express-session')
 const morgan = require('morgan') 
+const cookieParser = require('cookie-parser')
 
 require('dotenv').config();
 const port = process.env.PORT || 3000
@@ -20,6 +21,8 @@ app.use(express.static('public'));
 app.use(morgan('dev'))
 
 app.use(cors());
+
+app.use(cookieParser());
 
 app.use(session({
     secret: process.env.SESSION_SECRET,
