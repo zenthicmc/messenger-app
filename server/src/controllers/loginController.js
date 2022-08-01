@@ -11,9 +11,12 @@ exports.login = async (req, res) => {
             throw error;
         }
 
-        const compPassword = bcrypt.compare(req.body.password, data.password);
+        const compPassword = await bcrypt.compare(req.body.password, data.password);
         if (!compPassword) {
-            throw error;
+            res.json({ 
+                status: 'fail',
+                message: 'Wrong Password' 
+            });
         }
 
         const username = data.username;
@@ -28,34 +31,34 @@ exports.login = async (req, res) => {
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 24 * 1
         });
-
+        
         return res.json({
             status: "success",
             message: "Login Success",
             data: {
-                token: accessToken
+                accessToken: accessToken,
+                refreshToken: refreshToken,
             }
         })
     } catch (error) {
         return res.json({
             status: "fail",
-            message: "Invalid username or password"
+            message: "Username not found"
         })
     }
 }
 
 exports.logout = async (req, res) => {
     try {
-        const refreshToken = req.cookies.refreshToken;
-        if (!refreshToken) return res.json({ message: 'User not logged in' });
+        const refreshToken = req.body.refreshToken;
+        if (!refreshToken) return res.json({ status: 'fail', message: 'User not logged in' });
         const user = await User.findOne({ token: refreshToken });
-        if (!user || user == 'undefined') return res.json({ message: 'User not Found' });
-        console.log(user.username);
+        if (!user || user == 'undefined') return res.json({ status: "fail", message: "User not Found" });
         await User.updateOne({ username: user.username }, { $set: { token: '' } });
-        res.clearCookie('refreshToken');
-        return res.json({ message: 'User logged out' });
+        res.clearCookie("refreshToken");
+        return res.json({ status: "success", message: "User logged out" });
     } catch (error) {
-        return res.json('Internal Server Error');
+        return res.json({status: "fail", message: 'Internal Server Error'});
     }
 
 }

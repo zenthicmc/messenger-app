@@ -21,7 +21,7 @@ router.group('/api/user', router => {
 
     router.get('/email/:email', userExistsValidator.validateEmail);
 
-    router.get('/verifyToken', loginValidator.verifyToken);
+    router.post('/verifytoken', loginValidator.verifyToken);
 
     // Controller
     router.get('/:username', userController.details);

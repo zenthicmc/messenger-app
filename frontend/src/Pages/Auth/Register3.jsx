@@ -46,7 +46,6 @@ const Register3 = () => {
       })
       .then(res => {
          localStorage.removeItem("user");
-         // create swal alert when its confirmed navigate("/login");
          MySwal.fire({
             title: "Success",
             text: "Account created successfully",

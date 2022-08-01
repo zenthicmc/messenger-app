@@ -18,23 +18,27 @@ const Register2 = () => {
 
    const registerStore = async (e) => {
       e.preventDefault();
-      await axios.get(`/api/user/username/${JSON.stringify(username)}`).then(res => {
-         if (res.data.status === 'fail') {
+      try {
+         const response = await axios.get(`/api/user/username/${username}`);
+         if (response.data.status === "fail") {
             MySwal.fire({
                title: "Error",
-               text: "Username already registered",
+               text: "Username already exists",
                icon: "error",
                confirmButtonColor: "#4E426D",
             });
-            return false;
+            return;
          }
          else {
-            const data = JSON.parse(localStorage.getItem("user"));
-            data.username = username;
-            localStorage.setItem("user", JSON.stringify(data));
+            const user = JSON.parse(localStorage.getItem("user"));
+            user.username = username;
+            localStorage.setItem("user", JSON.stringify(user));
             navigate("/register/3");
          }
-      })
+      }
+      catch (error) {
+         console.log(error);
+      }
    };
 
    return (

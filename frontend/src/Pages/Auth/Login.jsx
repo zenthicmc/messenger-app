@@ -1,15 +1,69 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthNavbar from "../../Components/AuthNavbar";
+import axios from "../../Api/axios";
+import MySwal from "../../Utils/sweetalert";
+import { useCookies } from "react-cookie";
+import CryptoJS from "crypto-js";
 
 const Login = () => {
-   const captchaRef = useRef(null);
-   const [ token, setToken ] = useState(null);
+   const [username, setUsername] = useState("");
+   const [password, setPassword] = useState("");
+   const [token, setToken] = useState(null);
+   const [cookies, setCookie] = useCookies(["session"]);
+   const navigate = useNavigate();
 
-   const loginCheck = (e) => {
+   const loginCheck = async (e) => {
       e.preventDefault();
-      if(!token) return
+      if(!token) {
+         MySwal.fire({
+            title: "Error",
+            text: "Please verify captcha",
+            icon: "error",
+            confirmButtonColor: "#4E426D",
+         });
+         return;
+      }
+
+      try {
+         const response = await axios.post("/api/user/login", {
+            username: username,
+            password: password,
+         });
+
+         if (response.data.status === "fail") {
+            MySwal.fire({
+               title: "Error",
+               text: "Wrong username or password",
+               icon: "error",
+               confirmButtonColor: "#4E426D",
+            });
+            return;
+         }
+         else {
+            MySwal.fire({
+               title: "Success",
+               text: "Login success",
+               icon: "success",
+               confirmButtonColor: "#4E426D",
+            }).then(() => {
+               setCookie("session", response.data.data.accessToken, { path: "/" }, { secure: true });
+               setCookie("session_ga", CryptoJS.AES.encrypt(response.data.data.refreshToken, process.env.REACT_APP_HASH_KEY).toString(), { path: "/" }, { secure: true });
+
+               const encryptUsername = CryptoJS.AES.encrypt(
+                  username,
+                  process.env.REACT_APP_HASH_KEY
+               ).toString();
+
+               localStorage.setItem("username", encryptUsername);
+               navigate("/");
+            });
+         }
+      }
+      catch (error) {
+         console.log(error);
+      }
    };
 
    const handleVerificationSuccess = (token, ekey) => {
@@ -27,12 +81,14 @@ const Login = () => {
                   </h4>
                   <form className="mt-5" onSubmit={loginCheck}>
                      <div className="form-group px-3">
-                        <label htmlFor="email">Email</label>
+                        <label htmlFor="username">Username</label>
                         <input
-                           type="email"
+                           type="text"
                            className="form-input"
-                           id="email"
+                           id="username"
                            autoComplete="off"
+                           value={username}
+                           onChange={(e) => setUsername(e.target.value)}
                            required
                         />
                      </div>
@@ -43,6 +99,8 @@ const Login = () => {
                            className="form-input"
                            id="password"
                            autoComplete="off"
+                           value={password}
+                           onChange={(e) => setPassword(e.target.value)}
                            required
                         />
                      </div>

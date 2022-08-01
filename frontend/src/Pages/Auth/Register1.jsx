@@ -33,29 +33,33 @@ const Register1 = () => {
          return;
       }
 
-      await await axios
-         .get(`/api/user/email/${JSON.stringify(email)}`)
-         .then((res) => {
-            if (res.data.status === "fail") {
-               MySwal.fire({
-                  title: "Error",
-                  text: "Email already registered",
-                  icon: "error",
-                  confirmButtonColor: "#4E426D",
-               });
-               return false;
-            } else {
-               const data = JSON.stringify({
-                  firstname: firstname,
-                  lastname: lastname,
-                  email: email,
-                  password: password,
-               });
+      const data = JSON.stringify({
+         firstname: firstname,
+         lastname: lastname,
+         email: email,
+         password: password,
+      });
 
-               localStorage.setItem("user", data);
-               navigate("/register/2");
-            }
-         });
+      try {
+         const response = await axios.get(`/api/user/email/${email}`);
+         if (response.data.status === "fail") {
+            MySwal.fire({
+               title: "Error",
+               text: "Email already exists",
+               icon: "error",
+               confirmButtonColor: "#4E426D",
+            });
+            return;
+         }
+         else {
+            localStorage.setItem("user", data);
+            navigate("/register/2");
+         }
+         
+      }
+      catch (error) {
+         console.log(error);
+      }
    };
 
    return (
