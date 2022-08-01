@@ -14,7 +14,6 @@ const VerifyToken = () => {
       process.env.REACT_APP_HASH_KEY
    ).toString(CryptoJS.enc.Utf8);
 
-
 	useEffect(() => {
 		const checkToken = async () => {
 			const response = await axios.post(`/api/user/verifytoken`, {username: username}, {
