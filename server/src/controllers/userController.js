@@ -18,7 +18,7 @@ exports.details = async (req, res) => {
         const data = await User.findOne({ username: req.params.username });
 
         if (!data) {
-            return error;
+            throw error;
         }
 
         return res.json({
@@ -98,7 +98,7 @@ exports.destroy = async (req, res) => {
     try {
         const data = await User.findOne({ username: req.params.username });
 
-        if (!data) return error;
+        if (!data) throw error;
 
         await User.deleteOne({ username: data.username }).then(() => res.json({ status: 200, message: 'User Berhasil Dihapus' }));
     } catch (error) {
