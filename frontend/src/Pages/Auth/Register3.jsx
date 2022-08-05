@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { v4 as uuid } from "uuid";
 import AuthNavbar from "../../Components/AuthNavbar";
-import { storage } from "../../firebase";
+import { storage } from "../../Utils/firebase";
 import { ref, uploadBytes } from 'firebase/storage';
+import MySwal from "../../Utils/sweetalert";
 
 const Register3 = () => {
    const navigate = useNavigate();
@@ -23,7 +24,6 @@ const Register3 = () => {
    });
 
    const uploadImage = async () => {
-      if (image == null) return;
       const imageRef = ref(storage, `profile/${imageName}`);
       await uploadBytes(imageRef, image).then(() => {
          console.log("Uploaded");
@@ -33,6 +33,7 @@ const Register3 = () => {
    const registerStore = async (e) => {
       e.preventDefault();
       const data = JSON.parse(localStorage.getItem("user"));
+      if (!image) return;
       uploadImage();
 
       await axios.post(`http://127.0.0.1:5000/api/user`, {
@@ -44,9 +45,16 @@ const Register3 = () => {
          image: imageName
       })
       .then(res => {
-        localStorage.removeItem("user");
-        alert("Register Success");
-        navigate("/login");
+         localStorage.removeItem("user");
+         // create swal alert when its confirmed navigate("/login");
+         MySwal.fire({
+            title: "Success",
+            text: "Account created successfully",
+            icon: "success",
+            confirmButtonColor: "#4E426D",
+         }).then(() => {
+            navigate("/login");
+         });
       }).catch(err => {
          console.log(err);
       })

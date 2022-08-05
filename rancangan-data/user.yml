@@ -50,7 +50,7 @@ GET endpoint: /api/user/username/<username>
 #
 # login user
 #
-GET endpoint: /api/user/login
+PUT endpoint: /api/user/login
 # data yang dikirim
 {
 	"username": "zenthic",
@@ -59,14 +59,14 @@ GET endpoint: /api/user/login
 }
 # response json yang di kembalikan
 {
-	"success": "true",
+	"status": "success",
 	"message": "Login success"
 	"data" {
 		"token": "QtdWbBPl8W7HHfmvJ6FcQtdWbBPl8W7HHfmvJ6FcQtdWbBPl8W7HHfmvJ6FcQtdWbBPl8W7HHfmvJ6FcQtdWbBPl8W7HHfmvJ6Fc"
 	}
 }
 {
-	"success": "false",
+	"status": "fail",
 	"message": "Invalid username or password"
 }
 
