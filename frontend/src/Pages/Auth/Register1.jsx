@@ -1,10 +1,10 @@
 import { async } from "@firebase/util";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import AuthNavbar from "../../Components/AuthNavbar";
 import MySwal from "../../Utils/sweetalert";
+import axios from "../../Api/axios";
 
 const Register1 = () => {
    const navigate = useNavigate();
@@ -13,7 +13,6 @@ const Register1 = () => {
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
    const [confirmPassword, setConfirmPassword] = useState("");
-   const url = process.env.REACT_APP_BACKEND_URL;
    
    useEffect(() => {
       const user = JSON.parse(localStorage.getItem("user"));
@@ -34,28 +33,33 @@ const Register1 = () => {
          return;
       }
 
-      await axios.get(`${url}/api/user/email/${email}`).then(res => {
-         if (res.data.status === 'fail') {
+      const data = JSON.stringify({
+         firstname: firstname,
+         lastname: lastname,
+         email: email,
+         password: password,
+      });
+
+      try {
+         const response = await axios.get(`/api/user/email/${email}`);
+         if (response.data.status === "fail") {
             MySwal.fire({
                title: "Error",
-               text: "Email already registered",
+               text: "Email already exists",
                icon: "error",
                confirmButtonColor: "#4E426D",
             });
-            return false;
+            return;
          }
          else {
-            const data = JSON.stringify({
-               firstname: firstname,
-               lastname: lastname,
-               email: email,
-               password: password,
-            });
-
             localStorage.setItem("user", data);
             navigate("/register/2");
          }
-      })
+         
+      }
+      catch (error) {
+         console.log(error);
+      }
    };
 
    return (

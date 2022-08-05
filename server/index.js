@@ -32,7 +32,7 @@ app.use(session({
 
 app.use(express.static('public'));
 
-app.use(router, cors({ origin: '*' }))
+app.use(router, cors({ origin: "*" }));
 
 app.use((req, res) => {
     res.status(404).send('<h1>404 Not Found</h1>');

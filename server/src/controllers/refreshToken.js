@@ -4,11 +4,11 @@ const jwt = require('jsonwebtoken');
 
 exports.refresh = async (req, res) => {
     try {
-        const refreshToken = req.cookies.refreshToken;
+        const refreshToken = req.body.refreshToken;
         if(!refreshToken) throw error;
         
         const user = await User.findOne({token: refreshToken});
-        if(!user) throw error;
+        if(!user) return res.json({ status: 'fail', message: 'Token not found' });
 
         jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, decoded) => {
             if(err) throw error;
@@ -21,13 +21,12 @@ exports.refresh = async (req, res) => {
                 status: "success",
                 message: "Login Success",
                 data: {
-                    token: accessToken
+                    accessToken: accessToken
                 }
             })
         })
 
     } catch (error) {
-        console.log('Refresh Token Failed') 
-        return res.status(403).json({});
+        return res.json({ status: "fail", message: "Token not valid" });
     }
 }

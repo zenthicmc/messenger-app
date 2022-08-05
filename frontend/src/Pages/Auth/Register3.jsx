@@ -2,12 +2,12 @@ import ProfileUpload from "../../Assets/Img/profile.jpg";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { v4 as uuid } from "uuid";
 import AuthNavbar from "../../Components/AuthNavbar";
 import { storage } from "../../Utils/firebase";
 import { ref, uploadBytes } from 'firebase/storage';
 import MySwal from "../../Utils/sweetalert";
+import axios from "../../Api/axios";
 
 const Register3 = () => {
    const navigate = useNavigate();
@@ -36,7 +36,7 @@ const Register3 = () => {
       if (!image) return;
       uploadImage();
 
-      await axios.post(`http://127.0.0.1:5000/api/user`, {
+      await axios.post(`/api/user`, {
          username: data.username,
          firstname: data.firstname,
          lastname: data.lastname,
@@ -46,7 +46,6 @@ const Register3 = () => {
       })
       .then(res => {
          localStorage.removeItem("user");
-         // create swal alert when its confirmed navigate("/login");
          MySwal.fire({
             title: "Success",
             text: "Account created successfully",
@@ -58,10 +57,6 @@ const Register3 = () => {
       }).catch(err => {
          console.log(err);
       })
-   };
-
-   const onClick = (e) => {
-      inputFile.current.click();
    };
 
    const handleFileChange = (e) => {
@@ -98,7 +93,7 @@ const Register3 = () => {
                            <button
                               type="button"
                               className="border-0 bg-white w-100"
-                              onClick={onClick}
+                              onClick={() => inputFile.current.click()}
                            >
                               <img
                                  src={profile}
