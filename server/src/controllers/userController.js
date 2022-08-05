@@ -15,7 +15,7 @@ exports.index = async (req, res) => {
 
 exports.details = async (req, res) => {
     try {
-        const data = await User.findOne({ username: req.params.username });
+        const data = await User.findOne({ _id: req.params.id });
 
         if (!data) {
             throw error;
@@ -67,7 +67,7 @@ exports.store = async (req, res) => {
 
 exports.update = async (req, res) => {
     try {
-        const oldData = await User.findOne({ username: req.params.username });
+        const oldData = await User.findOne({ _id : req.params.id });
         if (!oldData) return res.status(404).json({ status: 'fail', message: 'User Tidak Ditemukan' });
 
         //    let image = oldData.image;
@@ -86,7 +86,7 @@ exports.update = async (req, res) => {
             token: (req.body.token) ? req.body.token : oldData.token
         }
 
-        await User.updateOne({ username: req.params.username }, {
+        await User.updateOne({ username: oldData.username }, {
             $set: user
         }).then(() => res.json({ user, status: 200, message: 'User Berhasil Diubah' }));
     } catch (error) {
@@ -96,7 +96,7 @@ exports.update = async (req, res) => {
 
 exports.destroy = async (req, res) => {
     try {
-        const data = await User.findOne({ username: req.params.username });
+        const data = await User.findOne({ _id: req.params.id });
 
         if (!data) throw error;
 
