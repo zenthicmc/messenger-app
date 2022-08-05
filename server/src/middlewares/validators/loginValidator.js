@@ -11,7 +11,7 @@ exports.verifyToken = async (req, res, next) => {
             });
 
         jwt.verify(token, process.env.JWT_ACCESS_SECRET, (err, decoded) => {
-            if (err) return return res.json({ 
+            if (err) return res.json({ 
                 status: 'fail',
                 message: 'Wrong user' 
             });
