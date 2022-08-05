@@ -26,11 +26,6 @@ exports.login = async (req, res) => {
         const refreshToken = jwt.sign({ username, email }, process.env.JWT_REFRESH_SECRET, { expiresIn: '1d' });
 
         await User.updateOne({ username }, { $set: { token: refreshToken } });
-
-        res.cookie('refreshToken', refreshToken, {
-            httpOnly: true,
-            maxAge: 1000 * 60 * 60 * 24 * 1
-        });
         
         return res.json({
             status: "success",
@@ -55,7 +50,6 @@ exports.logout = async (req, res) => {
         const user = await User.findOne({ token: refreshToken });
         if (!user || user == 'undefined') return res.json({ status: "fail", message: "User not Found" });
         await User.updateOne({ username: user.username }, { $set: { token: '' } });
-        res.clearCookie("refreshToken");
         return res.json({ status: "success", message: "User logged out" });
     } catch (error) {
         return res.json({status: "fail", message: 'Internal Server Error'});

@@ -11,6 +11,8 @@ import Register2 from "./Pages/Auth/Register2";
 import Register3 from "./Pages/Auth/Register3";
 import Logout from "./Pages/Auth/Logout";
 import NotFound from "./Pages/NotFound";
+import AuthNavbar from "./Components/AuthNavbar";
+import Navbar from "./Components/Navbar";
 
 function App() {
    return (

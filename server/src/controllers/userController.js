@@ -75,11 +75,11 @@ exports.update = async (req, res) => {
         //         image = 'default.png';
         //     }
 
-        const user = {
+        const data = {
             firstname: (req.body.firstname) ? req.body.firstname : oldData.firstname,
             lastname: (req.body.lastname) ? req.body.lastname : oldData.lastname,
             email: (req.body.email) ? req.body.email : oldData.email,
-            password: (req.body.password) ? req.body.password : oldData.password,
+            password: await bcrypt.hash(req.body.password, saltrounds),
             image: (req.body.image) ? req.body.image : oldData.image,
             online: false,
             status: (req.body.status) ? req.body.status : oldData.status,
@@ -87,10 +87,10 @@ exports.update = async (req, res) => {
         }
 
         await User.updateOne({ username: req.params.username }, {
-            $set: user
-        }).then(() => res.json({ user, status: 200, message: 'User Berhasil Diubah' }));
+            $set: data
+        }).then(() => res.json({ status: 'success', message: 'User Berhasil Diubah', data: {username: req.params.username } }));
     } catch (error) {
-        return res.status(400).json({ status: 'fail', message: 'User Gagal Diubah' });
+        return res.json({ status: 'fail', message: 'User Gagal Diubah' });
     }
 }
 
