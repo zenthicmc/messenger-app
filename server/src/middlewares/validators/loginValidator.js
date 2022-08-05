@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 exports.verifyToken = async (req, res, next) => {
     try {
-        const authHeader = req.headers['authorization'];
+        const authHeader = req.body.authorization;
         const token = authHeader && authHeader.split(' ')[1];
         if (token == null || token == undefined) return res.json({ message: 'Token not found' });
 
