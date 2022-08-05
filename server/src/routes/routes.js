@@ -24,13 +24,13 @@ router.group('/api/user', router => {
     router.post('/verifytoken', loginValidator.verifyToken);
 
     // Controller
-    router.get('/:username', userController.details);
+    router.get('/:id', userController.details);
     
     router.post('/', userController.store);
 
-    router.put('/:username', userController.update);
+    router.put('/:id', userController.update);
 
-    router.delete('/:username', userController.destroy);
+    router.delete('/:id', userController.destroy);
 
     router.get('/:username/image', userController.viewImage);
 

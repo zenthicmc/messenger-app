@@ -26,7 +26,7 @@ exports.login = async (req, res) => {
         const refreshToken = jwt.sign({ username, email }, process.env.JWT_REFRESH_SECRET, { expiresIn: '1d' });
 
         await User.updateOne({ username }, { $set: { token: refreshToken } });
-        
+
         return res.json({
             status: "success",
             message: "Login Success",
@@ -38,7 +38,7 @@ exports.login = async (req, res) => {
     } catch (error) {
         return res.json({
             status: "fail",
-            message: "Username not found"
+            message: "Invalid username or password"
         })
     }
 }
