@@ -24,7 +24,7 @@ const Logout = () => {
 				}).then(() => {
 					removeCookie("session");
 					removeCookie("session_ga");
-					localStorage.removeItem("username");
+					localStorage.removeItem("userid");
 					navigate("/login");
 				});
 			}

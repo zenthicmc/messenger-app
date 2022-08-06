@@ -2,59 +2,86 @@ import { useLocation, Navigate, Outlet } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "../Api/axios";
 import CryptoJS from "crypto-js";
-import { useEffect, useState } from "react";
+import {useState } from "react";
+
+const UserID = () => {
+	if(localStorage.getItem("userid")) {
+		return CryptoJS.AES.decrypt(
+			localStorage.getItem("userid"),
+			process.env.REACT_APP_HASH_KEY
+		).toString(CryptoJS.enc.Utf8);
+	} else {
+		return false;
+	}
+}
+
+const CheckAccessToken = async (accessToken) => {
+	return await axios.post(`/api/user/verifytoken`,{ id: UserID() },
+		{
+			headers: {
+				Authorization: `Bearer ${accessToken}`,
+			}
+		}
+	);
+}
+
+const CheckRefreshToken = async (refreshToken) => {
+	return await axios.post(`/api/user/refresh`, {
+      refreshToken: CryptoJS.AES.decrypt(
+         refreshToken,
+         process.env.REACT_APP_HASH_KEY
+      ).toString(CryptoJS.enc.Utf8),
+   });
+}
+
+const ClearToken = () => {
+	const [cookies, setCookie, removeCookie] = useCookies(["session"]);
+	removeCookie("session");
+	removeCookie("session_ga");
+	localStorage.removeItem("userid");
+	window.location.href = "/login";
+}
 
 const VerifyToken = () => {
    const [cookies, setCookie, removeCookie] = useCookies(["session"]);
 	const [auth, setAuth] = useState(true);
-	
-	if (!localStorage.getItem("username")) window.location.href = "/login";
-	const username = CryptoJS.AES.decrypt(
-      localStorage.getItem("username"),
-      process.env.REACT_APP_HASH_KEY
-   ).toString(CryptoJS.enc.Utf8);
 
-	useEffect(() => {
-		const checkToken = async () => {
-			const response = await axios.post(`/api/user/verifytoken`, {username: username}, {
-				headers: {
-					'Authorization': `Bearer ${cookies.session}`,
-				},
-			});
-			if (response.data.status !== "success") {
-				try {
-               // cek apakah refresh token valid
-               const response = await axios.post(`/api/user/refresh`, {
-                  refreshToken: CryptoJS.AES.decrypt(cookies.session_ga, process.env.REACT_APP_HASH_KEY).toString(CryptoJS.enc.Utf8),
-               });
-               if (response.data.status === "success") {
-               	setAuth(true);
-               	setCookie("session", response.data.data.accessToken, { path: "/" }, { secure: true });
-               	console.log("refresh token success");
-               }
-               else {
-               	setAuth(false);
-               	removeCookie("session");
-               	removeCookie("session_ga");
-               }
-            }
-				catch (error) {
-					console.log(error);
+	const checkToken = async () => {
+		const access = cookies.session ? await CheckAccessToken(cookies.session) : ClearToken();
+		if (access.data.status !== "success") {
+			try {
+				// cek apakah refresh token valid
+				const refresh = cookies.session_ga ? await CheckRefreshToken(cookies.session_ga) : ClearToken();
+				if (refresh.data.status === "success") {
+               setAuth(true);
+               setCookie("session", access.data.data.accessToken,{ path: "/" });
+               console.log("refresh token success");
+            } else {
 					setAuth(false);
-				}
+              	removeCookie("session");
+               removeCookie("session_ga");
+               localStorage.removeItem("userid");
+					window.location.href = "/login";
+					
+            }
+			} catch (error) {
+				console.log(error);
+				setAuth(false);
+				removeCookie("session");
+            removeCookie("session_ga");
+            localStorage.removeItem("userid");
+				window.location.href = "/login";
 			}
-			else {
-				setAuth(true);
-			}
+		} else {
+			setAuth(true);
 		}
-		checkToken();
-	}, []);
-
+	};
+	checkToken();
 	return auth;
 }
 
 const UseAuth = () => {
-   const auth = VerifyToken();
+   const auth = UserID() ? VerifyToken() : false;
    const location = useLocation();
 
    return auth ? (
