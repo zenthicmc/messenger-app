@@ -23,7 +23,7 @@ const Register2 = () => {
          if (response.data.status === "fail") {
             MySwal.fire({
                title: "Error",
-               text: "Username already exists",
+               text: `${response.data.message}`,
                icon: "error",
                confirmButtonColor: "#4E426D",
             });
