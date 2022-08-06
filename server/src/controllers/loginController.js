@@ -13,7 +13,10 @@ exports.login = async (req, res) => {
 
         const compPassword = await bcrypt.compare(req.body.password, data.password);
         if (!compPassword) {
-            throw error;
+            return res.json({ 
+                status: 'fail',
+                message: 'Wrong Password' 
+            });
         }
 
         const username = data.username;
