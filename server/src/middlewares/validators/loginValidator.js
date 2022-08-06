@@ -25,10 +25,9 @@ exports.verifyToken = async (req, res, next) => {
                 status: 'success',
                 message: 'Token verified'
             });
-            next();
         });
     } catch (error) {
-        res.json({
+       return res.json({
             status: 'fail',
             message: 'Token not found'
         });
