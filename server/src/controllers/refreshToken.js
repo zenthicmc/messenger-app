@@ -27,6 +27,6 @@ exports.refresh = async (req, res) => {
         })
 
     } catch (error) {
-        return res.json({ status: "fail", message: "Token not valid" });
+        return res.json({ status: "fail", message: "Invalid Token" });
     }
 }

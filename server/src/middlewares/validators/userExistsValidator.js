@@ -6,24 +6,24 @@ exports.validateUsername = async (req, res, next) => {
    const data = await User.findOne({ username: req.params.username });
 
    if (data) {
-      return res.json({ status: "fail", message: "Username Sudah Terdaftar" });
+      return res.json({ status: "fail", message: "Username has exists" });
    }
 
-   return res.json({ status: "success", message: "Username Dapat Digunakan" });
+   return res.json({ status: "success", message: "Username can be used" });
 };
 
 exports.validateEmail = async (req, res, next) => {
    const email = emailValidator.validate(req.params.email);
 
    if (email !== true) {
-      return res.json({ status: "fail", message: "Email Tidak Valid" });
+      return res.json({ status: "fail", message: "Invalid Email" });
    }
 
    const data = await User.findOne({ email: req.params.email });
 
    if (data) {
-      return res.json({ status: "fail", message: "Email Sudah Terdaftar" });
+      return res.json({ status: "fail", message: "Email has exists" });
    }
 
-   return res.json({ status: "success", message: "Email Dapat Digunakan" });
+   return res.json({ status: "success", message: "Email can be used" });
 };

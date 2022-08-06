@@ -9,7 +9,7 @@ exports.index = async (req, res) => {
     return res.json({
         data: users,
         status: "success",
-        messages: "fetch data success",
+        messages: "Fetch data success",
     });
 }
 
@@ -34,10 +34,10 @@ exports.details = async (req, res) => {
               token: data.token,
            },
            status: "success",
-           messages: "Data ditemukan",
+           messages: "Data found",
         });
     } catch (error) {
-        return res.status(400).json({ status: 'fail', messages: "Data tidak ditemukan" });
+        return res.status(400).json({ status: 'fail', messages: "Not Found" });
     }
 }
 
@@ -58,17 +58,17 @@ exports.store = async (req, res) => {
         };
 
         User.create(data, (err, result) => {
-            return res.json({ data, status: 'success', message: 'User Berhasil Ditambahkan' });
+            return res.json({ data, status: 'success', message: 'User Created' });
         });
     } catch (error) {
-        return res.status(400).json({ status: 'fail', message: 'User Gagal Ditambahkan' });
+        return res.status(400).json({ status: 'fail', message: 'Unable to create user' });
     }
 }
 
 exports.update = async (req, res) => {
     try {
         const oldData = await User.findOne({ _id : req.params.id });
-        if (!oldData) return res.status(404).json({ status: 'fail', message: 'User Tidak Ditemukan' });
+        if (!oldData) return res.status(404).json({ status: 'fail', message: 'User not found' });
 
         //    let image = oldData.image;
         //     if (oldData.image == null || undefined) {
@@ -88,9 +88,9 @@ exports.update = async (req, res) => {
 
         await User.updateOne({ username: req.params.username }, {
             $set: data
-        }).then(() => res.json({ status: 'success', message: 'User Berhasil Diubah', data: {username: req.params.username } }));
+        }).then(() => res.json({ status: 'success', message: 'User updated', data: {username: req.params.username } }));
     } catch (error) {
-        return res.json({ status: 'fail', message: 'User Gagal Diubah' });
+        return res.json({ status: 'fail', message: 'Unable to update user' });
     }
 }
 
@@ -100,9 +100,9 @@ exports.destroy = async (req, res) => {
 
         if (!data) throw error;
 
-        await User.deleteOne({ username: data.username }).then(() => res.json({ status: 200, message: 'User Berhasil Dihapus' }));
+        await User.deleteOne({ username: data.username }).then(() => res.json({ status: 200, message: 'User has been deleted' }));
     } catch (error) {
-        return res.status(400).json({ status: 'fail', message: 'User Gagal Dihapus' });
+        return res.status(400).json({ status: 'fail', message: 'Unable to delete user' });
     }
 }
 
