@@ -45,7 +45,7 @@ const Register1 = () => {
          if (response.data.status === "fail") {
             MySwal.fire({
                title: "Error",
-               text: "Email already exists",
+               text: `${response.data.message}`,
                icon: "error",
                confirmButtonColor: "#4E426D",
             });

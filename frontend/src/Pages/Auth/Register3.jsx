@@ -33,7 +33,14 @@ const Register3 = () => {
    const registerStore = async (e) => {
       e.preventDefault();
       const data = JSON.parse(localStorage.getItem("user"));
-      if (!image) return;
+      if (!image) {
+         MySwal.fire({
+            title: "Error",
+            text: "Please upload an image",
+            icon: "error",
+            confirmButtonColor: "#4E426D",
+         });
+      };
       uploadImage();
 
       await axios.post(`/api/user`, {
