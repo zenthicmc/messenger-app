@@ -50,7 +50,7 @@ exports.logout = async (req, res) => {
         const refreshToken = req.body.refreshToken;
         if (!refreshToken) return res.json({ status: 'fail', message: 'User not logged in' });
         const user = await User.findOne({ token: refreshToken });
-        if (!user || user == 'undefined') return res.json({ status: "fail", message: "User not Found" });
+        if (!user || user == 'undefined') return res.json({ status: "success", message: "User not Found" });
         await User.updateOne({ username: user.username }, { $set: { token: '' } });
         return res.json({ status: "success", message: "User logged out" });
     } catch (error) {

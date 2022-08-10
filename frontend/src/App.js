@@ -9,7 +9,6 @@ import Setting from "./Pages/Setting";
 import Register1 from "./Pages/Auth/Register1";
 import Register2 from "./Pages/Auth/Register2";
 import Register3 from "./Pages/Auth/Register3";
-import Logout from "./Pages/Auth/Logout";
 import NotFound from "./Pages/NotFound";
 import AuthNavbar from "./Components/AuthNavbar";
 import Navbar from "./Components/Navbar";
@@ -22,7 +21,6 @@ function App() {
                <Route path="/" element={<Home />} />
                <Route path="/chat" element={<Chat />} />
                <Route path="/setting" element={<Setting />} />
-               <Route path="/logout" element={<Logout />} />
             </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register1 />} />

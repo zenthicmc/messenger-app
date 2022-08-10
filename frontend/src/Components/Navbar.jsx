@@ -1,7 +1,41 @@
 import ChatLogo from '../Assets/Img/chat.png';
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import axios from "../Api/axios";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
+import CryptoJS from "crypto-js";
+import MySwal from "../Utils/sweetalert";
 
 const Navbar = () => {
+   const [cookies, removeCookie] = useCookies(["session"]);
+   const navigate = useNavigate();
+
+   const Logout = async () => {
+      const response = await axios.post("/api/user/logout", {
+         refreshToken: CryptoJS.AES.decrypt(
+            cookies.session_ga,
+            process.env.REACT_APP_HASH_KEY
+         ).toString(CryptoJS.enc.Utf8),
+      });
+
+      if (response.data.status === "success") {
+         MySwal.fire({
+            title: "Logout Success",
+            text: "You have been logged out",
+            icon: "success",
+            confirmButtonColor: "#4E426D",
+         }).then(() => {
+            removeCookie("session");
+            removeCookie("session_ga");
+            localStorage.removeItem("userid");
+            navigate("/login");
+         });
+      } else {
+         console.log(response.data.message);
+      }
+   };
+
 	return (
       <nav>
          <div className="container">
@@ -35,9 +69,9 @@ const Navbar = () => {
                         </Link>
                      </li>
                      <li>
-                        <Link to="/logout" className="nav-link">
+                        <button className="nav-link border-0" onClick={Logout}>
                            <i className="fa-solid fa-right-from-bracket"></i>
-                        </Link>
+                        </button>
                      </li>
                   </ul>
                </div>
