@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Assets/Css/Utilities.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UseAuth from "./Middleware/UseAuth";
@@ -10,8 +10,6 @@ import Register1 from "./Pages/Auth/Register1";
 import Register2 from "./Pages/Auth/Register2";
 import Register3 from "./Pages/Auth/Register3";
 import NotFound from "./Pages/NotFound";
-import AuthNavbar from "./Components/AuthNavbar";
-import Navbar from "./Components/Navbar";
 
 function App() {
    return (

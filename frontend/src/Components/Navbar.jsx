@@ -1,6 +1,5 @@
 import ChatLogo from '../Assets/Img/chat.png';
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
 import axios from "../Api/axios";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
@@ -21,7 +20,7 @@ const Navbar = () => {
 
       if (response.data.status === "success") {
          MySwal.fire({
-            title: "Logout Success",
+            title: "Success",
             text: "You have been logged out",
             icon: "success",
             confirmButtonColor: "#4E426D",
