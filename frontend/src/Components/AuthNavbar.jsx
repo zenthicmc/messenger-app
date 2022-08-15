@@ -18,7 +18,7 @@ const AuthNavbar = () => {
                      <li>
                         <Link
                            to="/login"
-                           className="button b-primary text-white rounded-5 px-4 me-3"
+                           className="button b-primary text-white rounded-5 px-4 py-2 me-3"
                         >
                            LOGIN
                         </Link>
@@ -26,7 +26,7 @@ const AuthNavbar = () => {
                      <li>
                         <Link
                            to="/register"
-                           className="button b-secondary text-white rounded-5 px-4"
+                           className="button b-secondary text-white rounded-5 px-4 py-2"
                         >
                            REGISTER
                         </Link>

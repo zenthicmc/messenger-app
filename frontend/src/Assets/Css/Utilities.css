@@ -4,7 +4,7 @@
 }
 
 .t-dark {
-   color: #555555;
+   color: #505050;
 }
 
 .b-primary {
@@ -64,6 +64,12 @@
    width: auto;
    height: 55px;
    padding: 10px 0px;
+}
+
+.profile-button {
+   width: auto;
+   height: 45px;
+   padding: 9px 40px;
 }
 
 .button:hover {

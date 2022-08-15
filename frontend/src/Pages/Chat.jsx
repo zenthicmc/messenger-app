@@ -1,14 +1,17 @@
 import Navbar from "../Components/Navbar";
 import "../Assets/Css/Chat.css";
+import "../Assets/Css/Profile.css";
 import Contact from "../Components/Contact";
-import Message from "../Components/Message";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import UserChats from "./UserChats";
 
 const Chat = () => {
    const [users , setUsers] = useState([]);
    const [keyword , setKeyword] = useState("");
-   const [clickedUser , setClickedUser] = useState('Select a user');
+   const [clickedUser , setClickedUser] = useState(false);
+   const navigate = useNavigate();
 
    useEffect(() => {
       const getUsers = async () => {
@@ -21,7 +24,7 @@ const Chat = () => {
 
    const handleClick = async (e) => {
       await axios.get(`https://dummyjson.com/users/${e.currentTarget.id}`).then((res) => {
-         setClickedUser(`${res.data.firstName} ${res.data.lastName}`);
+         setClickedUser(res.data);
       });
    }
 
@@ -46,14 +49,33 @@ const Chat = () => {
                </div>
                <div className="w-70">
                   <div className="row justify-content-between">
-                     <div className="w-auto bg-white shadow rounded-5 px-4 py-2">
-                        <p className="text-center mt-1">{clickedUser}</p>
-                     </div>
-                     <div className="w-auto bg-white shadow rounded-5 px-4 py-2">
-                        <button className="fw-bold t-secondary text-center bg-white border-0 p-1">
-                           Clear Chat
-                        </button>
-                     </div>
+                     {clickedUser ? (
+                        <>
+                           <div className="w-auto bg-white shadow rounded-5 px-4 py-2">
+                              <p className="text-center mt-1">
+                                 {clickedUser.firstName + clickedUser.lastName}
+                              </p>
+                           </div>
+                           <div className="w-auto bg-white shadow rounded-5 px-4 py-2">
+                              <button className="fw-bold t-secondary text-center bg-white border-0 p-1">
+                                 Clear Chat
+                              </button>
+                           </div>
+                        </>
+                     ) : (
+                        <>
+                           <div className="w-auto bg-white shadow rounded-5 px-4 py-2">
+                              <p className="text-center mt-1">
+                                 No user selected
+                              </p>
+                           </div>
+                           <div className="w-auto bg-white shadow rounded-5 px-4 py-2">
+                              <button className="fw-bold t-secondary text-center bg-white border-0 p-1">
+                                 Clear Chat
+                              </button>
+                           </div>
+                        </>
+                     )}
                   </div>
                </div>
             </div>
@@ -76,73 +98,7 @@ const Chat = () => {
                   ))}
                </div>
                <div className="w-70 h-95 bg-white shadow rounded-5 position-relative p-4">
-                  <div className="messages d-flex flex-column">
-                     <Message
-                        sender="true"
-                        value="Lorem Ipsum is simply dummy text"
-                     />
-                     <Message value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever" />
-                     <Message
-                        sender="true"
-                        value="Lorem Ipsum is simply dummy text"
-                     />
-                     <Message value="Lorem Ipsum is simply dummy text" />
-                     <Message
-                        sender="true"
-                        value="Lorem Ipsum is simply dummy text"
-                     />
-                     <Message value="Lorem Ipsum is simply dummy text" />
-                     <Message value="Lorem Ipsum is simply dummy text" />
-                     <Message
-                        sender="true"
-                        value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries"
-                     />
-                  </div>
-                  <div className="input-area w-100">
-                     <div className="col-lg-12 mt-2">
-                        <form className="w-100 d-flex justify-content-between">
-                           <button
-                              type="button"
-                              className="b-secondary rounded-5 border-0"
-                              style={{ width: "50px" }}
-                           >
-                              <i
-                                 className="fa-solid fa-face-grin text-white mt-1"
-                                 style={{ fontSize: "22px" }}
-                              ></i>
-                           </button>
-                           <input
-                              type="text"
-                              name="message"
-                              className="form-input rounded-5 px-4 w-75"
-                              placeholder="Type a message..."
-                              autoComplete="off"
-                              style={{ fontSize: "14px" }}
-                              required
-                           />
-                           <button
-                              type="button"
-                              className="b-secondary rounded-5 border-0"
-                              style={{ width: "50px" }}
-                           >
-                              <i
-                                 className="fa-solid fa-paperclip text-white mt-1"
-                                 style={{ fontSize: "20px" }}
-                              ></i>
-                           </button>
-                           <button
-                              type="submit"
-                              className="b-primary me-5 rounded-5 border-0"
-                              style={{ width: "50px" }}
-                           >
-                              <i
-                                 className="fa-solid fa-paper-plane text-white mt-1"
-                                 style={{ fontSize: "20px" }}
-                              ></i>
-                           </button>
-                        </form>
-                     </div>
-                  </div>
+                  <UserChats userid={clickedUser.id} img={clickedUser.image} />
                </div>
             </div>
          </div>
