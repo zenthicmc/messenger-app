@@ -66,10 +66,10 @@ const SearchFriends = () => {
                         </div>
                         <div class="col-md-4 py-3">
                            <Link to={`/user/${user.username}`} state={{ id: user.id }} className="btn w-100 button-secondary text-white no-hover">
-                              See More
+                              <p style={{ fontSize: '14px' }}>See More</p>
                            </Link>
                            <Link to="#" className="btn w-100 button-primary text-white mt-2 no-hover">
-                              Add Friend
+                              <p style={{ fontSize: '14px' }}>Add Friend</p>
                            </Link>
                         </div>
                      </div>
