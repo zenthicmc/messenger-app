@@ -55,7 +55,7 @@ const UserInfo = () => {
                            <Link to="/chat" className="profile-button b-secondary text-white rounded-3">
                               Chat Now
                            </Link>
-                           <Link to="" className="profile-button b-primary text-white rounded-3">
+                           <Link to="#" className="profile-button b-primary text-white rounded-3">
                               Add Friend
                            </Link>
                         </div>
