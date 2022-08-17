@@ -6,12 +6,18 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Message from "../Components/Message";
+import { useLoadingContext } from "react-router-loading";
 
 const Chat = () => {
+   const loadingContext = useLoadingContext();
    const [users , setUsers] = useState([]);
    const [keyword , setKeyword] = useState("");
    const [clickedUser , setClickedUser] = useState(false);
    const navigate = useNavigate();
+
+   setTimeout(() => {
+      loadingContext.done();
+   }, 500);
 
    useEffect(() => {
       const getUsers = async () => {
@@ -31,7 +37,6 @@ const Chat = () => {
    const handleForm = (e) => {
       e.preventDefault();
    }
-
 
    return (
       <div>

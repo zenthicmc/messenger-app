@@ -9,8 +9,10 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import MySwal from "../Utils/sweetalert";
 import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
+import { useLoadingContext } from "react-router-loading";
 
 const Setting = () => {
+   const loadingContext = useLoadingContext();
    const [imageName, setImageName] = useState(uuid());
    const [image, setImage] = useState();
    const [profile, setProfile] = useState(ProfileUpload);
@@ -22,6 +24,10 @@ const Setting = () => {
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
    const [cnfrmPassword, setCnfrmPassword] = useState("");
+
+   setTimeout(() => {
+      loadingContext.done();
+   }, 500);
 
    const getDownloadImage = async (img) => {
       getDownloadURL(ref(storage, `profile/${img}`))

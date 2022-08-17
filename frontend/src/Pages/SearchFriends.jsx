@@ -2,10 +2,16 @@ import Navbar from "../Components/Navbar";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "../Api/axios";
+import { useLoadingContext } from "react-router-loading";
 
 const SearchFriends = () => {
+	const loadingContext = useLoadingContext();
 	const [keyword, setKeyword] = useState("");
 	const [users, setUsers] = useState([]);
+
+	setTimeout(() => {
+      loadingContext.done();
+   }, 400);
 
 	useEffect(() => {
 		const getUsers = async () => {

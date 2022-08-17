@@ -5,12 +5,18 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ImgSelectUser from '../Assets/Img/selectUser.png';
 import { useLocation } from "react-router-dom";
+import { useLoadingContext } from "react-router-loading";
 
 const UserInfo = () => {
+   const loadingContext = useLoadingContext();
    const location = useLocation();
    const { id } = location.state;
    const [user, setUser] = useState([]);
 	const navigate = useNavigate();
+
+   setTimeout(() => {
+      loadingContext.done();
+   }, 500);
 
    useEffect(() => {
       if(id) {
@@ -55,7 +61,7 @@ const UserInfo = () => {
                            <Link to="/chat" className="profile-button b-secondary text-white rounded-3">
                               Chat Now
                            </Link>
-                           <Link to="" className="profile-button b-primary text-white rounded-3">
+                           <Link to="/" className="profile-button b-primary text-white rounded-3">
                               Add Friend
                            </Link>
                         </div>

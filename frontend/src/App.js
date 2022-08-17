@@ -1,6 +1,7 @@
 import React from "react";
 import "./Assets/Css/Utilities.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router} from "react-router-dom";
+import { Routes, Route } from "react-router-loading";
 import UseAuth from "./Middleware/UseAuth";
 import Home from "./Pages/Home";
 import Login from "./Pages/Auth/Login";
@@ -19,10 +20,10 @@ function App() {
          <Routes>
             <Route element={<UseAuth />}>
                <Route path="/" element={<Home />} />
-               <Route path="/chat" element={<Chat />} />
-               <Route path="/friends" element={<SearchFriends />} />
-               <Route path="/setting" element={<Setting />} />
-               <Route path="/user/:username" element={<UserInfo />} />
+               <Route path="/chat" element={<Chat />} loading />
+               <Route path="/friends" element={<SearchFriends />} loading />
+               <Route path="/setting" element={<Setting />} loading />
+               <Route path="/user/:username" element={<UserInfo />} loading />
             </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register1 />} />
