@@ -15,7 +15,7 @@ p {
 }
 
 .profile-button-group {
-	width: 45%;
+	width: 30%;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;

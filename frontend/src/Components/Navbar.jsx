@@ -39,13 +39,13 @@ const Navbar = () => {
       <nav>
          <div className="container">
             <div className="row mt-3">
-               <div className="col-lg-8 d-flex mt-2">
+               <div className="col-lg-7 d-flex mt-2">
                   <Link to="/" className="d-flex brand">
                      <img src={ChatLogo} alt={"logo"} className="logo"></img>
                      <h2 className="ms-3 brand-title">Messenger</h2>
                   </Link>
                </div>
-               <div className="col-lg-4 mt-2">
+               <div className="col-lg-5 mt-2">
                   <ul className="d-flex justify-content-between list-unstyled p-2">
                      <li>
                         <Link to="/" className="nav-link">
@@ -55,6 +55,11 @@ const Navbar = () => {
                      <li>
                         <Link to="/chat" className="nav-link">
                            CHAT
+                        </Link>
+                     </li>
+                     <li>
+                        <Link to="/friends" className="nav-link">
+                           ADD FRIEND
                         </Link>
                      </li>
                      <li>
@@ -68,7 +73,7 @@ const Navbar = () => {
                         </Link>
                      </li>
                      <li>
-                        <button className="nav-link border-0" onClick={Logout}>
+                        <button className="nav-link border-0" onClick={Logout} style={{ backgroundColor: 'inherit' }}>
                            <i className="fa-solid fa-right-from-bracket"></i>
                         </button>
                      </li>

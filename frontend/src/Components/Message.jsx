@@ -13,7 +13,7 @@ const Message = (props) => {
             <div className="d-flex">
                <div className="img-profile mt-2 me-3">
                   <Link
-                     to={{ pathname: "/", state: { userid: props.userid } }}
+                     to={{ pathname: "/" }}
                      className="border-0 bg-white"
                   >
                      <img

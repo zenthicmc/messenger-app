@@ -66,12 +66,6 @@
    padding: 10px 0px;
 }
 
-.profile-button {
-   width: auto;
-   height: 45px;
-   padding: 9px 40px;
-}
-
 .button:hover {
    opacity: 0.94;
 }
@@ -107,4 +101,34 @@
 
 .h-95 {
    height: 550px;
+}
+
+.padding {
+   padding: 10px;
+}
+
+.button-primary {
+   background-color: var(--color-primary);
+}
+
+.button-secondary {
+   background-color: var(--color-secondary);
+}
+
+.button-secondary:hover {
+   opacity: 0.88;
+   background-color: var(--color-secondary);
+}
+
+.button-primary:hover {
+   opacity: 0.88;
+   background-color: var(--color-primary);
+}
+
+.button-primary:focus {
+   background-color: var(--color-primary);
+}
+
+.button-secondary:focus {
+   background-color: var(--color-secondary);
 }
