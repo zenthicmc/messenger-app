@@ -4,7 +4,15 @@ const User = require('../models/User');
 const saltrounds = 10;
 
 exports.index = async (req, res) => {
-    const users = await User.find();
+
+    const keyword = req.query.search ? {
+        $or: [
+            { name: { $regex: req.query.search, $options: "i" } },
+            { email: { $regex: req.query.search, $options: "i" } }
+        ]
+    } : {};
+
+    const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
 
     return res.json({
         data: users,
@@ -22,19 +30,19 @@ exports.details = async (req, res) => {
         }
 
         return res.json({
-           data: {
-              username: data.username,
-              firstname: data.firstname,
-              lastname: data.lastname,
-              email: data.email,
-              password: data.password,
-              image: data.image,
-              online: data.online,
-              status: data.status,
-              token: data.token,
-           },
-           status: "success",
-           messages: "Data found",
+            data: {
+                username: data.username,
+                firstname: data.firstname,
+                lastname: data.lastname,
+                email: data.email,
+                password: data.password,
+                image: data.image,
+                online: data.online,
+                status: data.status,
+                token: data.token,
+            },
+            status: "success",
+            messages: "Data found",
         });
     } catch (error) {
         return res.status(400).json({ status: 'fail', messages: "Not Found" });
@@ -44,17 +52,17 @@ exports.details = async (req, res) => {
 exports.store = async (req, res) => {
     try {
         const hashPassword = await bcrypt.hash(req.body.password, saltrounds);
-        
+
         const data = {
-           username: req.body.username,
-           firstname: req.body.firstname,
-           lastname: req.body.lastname,
-           email: req.body.email,
-           password: hashPassword,
-           image: req.body.image,
-           online: false,
-           status: "",
-           token: "",
+            username: req.body.username,
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            email: req.body.email,
+            password: hashPassword,
+            image: req.body.image,
+            online: false,
+            status: "",
+            token: "",
         };
 
         User.create(data, (err, result) => {
@@ -67,7 +75,7 @@ exports.store = async (req, res) => {
 
 exports.update = async (req, res) => {
     try {
-        const oldData = await User.findOne({ _id : req.params.id });
+        const oldData = await User.findOne({ _id: req.params.id });
         if (!oldData) return res.status(404).json({ status: 'fail', message: 'User not found' });
 
         //    let image = oldData.image;
@@ -88,7 +96,7 @@ exports.update = async (req, res) => {
 
         await User.updateOne({ username: req.params.username }, {
             $set: data
-        }).then(() => res.json({ status: 'success', message: 'User updated', data: {username: req.params.username } }));
+        }).then(() => res.json({ status: 'success', message: 'User updated', data: { username: req.params.username } }));
     } catch (error) {
         return res.json({ status: 'fail', message: 'Unable to update user' });
     }
