@@ -5,23 +5,55 @@ import { v4 as uuid } from "uuid";
 import { useEffect, useState, useRef } from "react";
 import ProfileUpload from "../Assets/Img/profile.jpg";
 import { storage } from "../Utils/firebase";
-import { ref, uploadBytes } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import MySwal from "../Utils/sweetalert";
 import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
+import { useLoadingContext } from "react-router-loading";
 
 const Setting = () => {
-	const [imageName, setImageName] = useState(uuid());
-	const [image, setImage] = useState();
-	const [profile, setProfile] = useState(ProfileUpload);
-	const inputFile = useRef(null);
-	const navigate = useNavigate();
+   const loadingContext = useLoadingContext();
+   const [imageName, setImageName] = useState(uuid());
+   const [image, setImage] = useState();
+   const [profile, setProfile] = useState(ProfileUpload);
+   const inputFile = useRef(null);
+   const navigate = useNavigate();
 
-	const [firstname, setFirstName] = useState("");
-	const [lastname, setLastName] = useState("");
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [cnfrmPassword, setCnfrmPassword] = useState("");
+   const [firstname, setFirstName] = useState("");
+   const [lastname, setLastName] = useState("");
+   const [email, setEmail] = useState("");
+   const [password, setPassword] = useState("");
+   const [cnfrmPassword, setCnfrmPassword] = useState("");
+
+   setTimeout(() => {
+      loadingContext.done();
+   }, 500);
+
+   const getDownloadImage = async (img) => {
+      getDownloadURL(ref(storage, `profile/${img}`))
+         .then((url) => {
+            setProfile(url);
+         })
+         .catch((error) => {
+            console.log(error);
+         });
+   }
+
+   useEffect(() => {
+      const UserID = CryptoJS.AES.decrypt(
+         localStorage.getItem("userid"),
+         process.env.REACT_APP_HASH_KEY
+      ).toString(CryptoJS.enc.Utf8);
+
+      const OldData = async () => {
+         const OldData = await axios.get(`/api/user/${UserID}`);
+         await getDownloadImage(OldData.data.data.image);
+         setFirstName(OldData.data.data.firstname);
+         setLastName(OldData.data.data.lastname);
+         setEmail(OldData.data.data.email);
+      }
+      OldData();
+   }, [])
 
    const handleFileChange = (e) => {
       const fileObj = e.target.files && e.target.files[0];
@@ -34,29 +66,29 @@ const Setting = () => {
       setProfile(fileLocation);
    };
 
-	const uploadImage = async () => {
+   const uploadImage = async () => {
       const imageRef = ref(storage, `profile/${imageName}`);
       await uploadBytes(imageRef, image).then(() => {
          console.log("Uploaded");
       });
    };
 
-	const settingStore = async (e) => {
+   const settingStore = async (e) => {
       e.preventDefault();
-		const username = CryptoJS.AES.decrypt(
-			localStorage.getItem("username"),
-			process.env.REACT_APP_HASH_KEY
-		).toString(CryptoJS.enc.Utf8);
+      const username = CryptoJS.AES.decrypt(
+         localStorage.getItem("username"),
+         process.env.REACT_APP_HASH_KEY
+      ).toString(CryptoJS.enc.Utf8);
       if (!image) return;
-		if (password !== cnfrmPassword) {
-			MySwal.fire({
-				title: "Error",
-				text: "Password and confirm password does not match",
-				icon: "error",
-				confirmButtonColor: "#4E426D",
-			});
-			return;
-		}
+      if (password !== cnfrmPassword) {
+         MySwal.fire({
+            title: "Error",
+            text: "Password and confirm password does not match",
+            icon: "error",
+            confirmButtonColor: "#4E426D",
+         });
+         return;
+      }
       uploadImage();
 
       await axios
@@ -76,12 +108,12 @@ const Setting = () => {
                confirmButtonColor: "#4E426D",
             }).then(() => {
                navigate("/setting");
-					setFirstName("");
-					setLastName("");
-					setEmail("");
-					setPassword("");
-					setCnfrmPassword("");
-					setProfile(ProfileUpload);
+               setFirstName("");
+               setLastName("");
+               setEmail("");
+               setPassword("");
+               setCnfrmPassword("");
+               setProfile(ProfileUpload);
             });
          })
          .catch((err) => {

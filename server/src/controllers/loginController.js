@@ -19,11 +19,12 @@ exports.login = async (req, res) => {
             });
         }
 
+        const id = data._id;
         const username = data.username;
         const email = data.email
 
-        const accessToken = jwt.sign({ username, email }, process.env.JWT_ACCESS_SECRET, { expiresIn: '1h' });
-        const refreshToken = jwt.sign({ username, email }, process.env.JWT_REFRESH_SECRET, { expiresIn: '1d' });
+        const accessToken = jwt.sign({ id, username, email }, process.env.JWT_ACCESS_SECRET, { expiresIn: '1h' });
+        const refreshToken = jwt.sign({ id, username, email }, process.env.JWT_REFRESH_SECRET, { expiresIn: '1d' });
 
         await User.updateOne({ username }, { $set: { token: refreshToken } });
 
@@ -31,6 +32,7 @@ exports.login = async (req, res) => {
             status: "success",
             message: "Login Success",
             data: {
+                userId: data._id,
                 accessToken: accessToken,
                 refreshToken: refreshToken,
             }
@@ -48,7 +50,7 @@ exports.logout = async (req, res) => {
         const refreshToken = req.body.refreshToken;
         if (!refreshToken) return res.json({ status: 'fail', message: 'User not logged in' });
         const user = await User.findOne({ token: refreshToken });
-        if (!user || user == 'undefined') return res.json({ status: "fail", message: "User not Found" });
+        if (!user || user == 'undefined') return res.json({ status: "success", message: "User not Found" });
         await User.updateOne({ username: user.username }, { $set: { token: '' } });
         return res.json({ status: "success", message: "User logged out" });
     } catch (error) {

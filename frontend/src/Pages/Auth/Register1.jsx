@@ -1,4 +1,3 @@
-import { async } from "@firebase/util";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -45,7 +44,7 @@ const Register1 = () => {
          if (response.data.status === "fail") {
             MySwal.fire({
                title: "Error",
-               text: "Email already exists",
+               text: `${response.data.message}`,
                icon: "error",
                confirmButtonColor: "#4E426D",
             });

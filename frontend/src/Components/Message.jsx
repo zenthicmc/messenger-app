@@ -1,4 +1,5 @@
 import "../Assets/Css/Message.css";
+import { Link } from "react-router-dom";
 
 const Message = (props) => {
    return (
@@ -11,13 +12,16 @@ const Message = (props) => {
          ) : (
             <div className="d-flex">
                <div className="img-profile mt-2 me-3">
-                  <a href="#">
+                  <Link
+                     to={{ pathname: "/" }}
+                     className="border-0 bg-white"
+                  >
                      <img
-                        src="https://picsum.photos/200"
+                        src={props.img ? props.img : "https://via.placeholder.com/150"}
                         className="profile rounded-circle"
                         alt="profile"
                      />
-                  </a>
+                  </Link>
                </div>
                <div className="message-receiver">
                   <p className="text-dark text-start">{props.value}</p>

@@ -16,7 +16,7 @@ exports.verifyToken = async (req, res, next) => {
                 message: 'Wrong user' 
             });
 
-            if (req.body.username != decoded.username) return res.json({ 
+            if (req.body.id != decoded.id) return res.json({ 
                 status: 'fail',
                 message: 'Wrong user' 
             });

@@ -48,15 +48,15 @@ const Login = () => {
                icon: "success",
                confirmButtonColor: "#4E426D",
             }).then(() => {
-               setCookie("session", response.data.data.accessToken, { path: "/" }, { secure: true });
-               setCookie("session_ga", CryptoJS.AES.encrypt(response.data.data.refreshToken, process.env.REACT_APP_HASH_KEY).toString(), { path: "/" }, { secure: true });
+               setCookie("session", response.data.data.accessToken, { path: "/" });
+               setCookie("session_ga", CryptoJS.AES.encrypt(response.data.data.refreshToken, process.env.REACT_APP_HASH_KEY).toString(), { path: "/" });
 
-               const encryptUsername = CryptoJS.AES.encrypt(
-                  username,
+               const encryptUserId = CryptoJS.AES.encrypt(
+                  response.data.data.userId,
                   process.env.REACT_APP_HASH_KEY
                ).toString();
 
-               localStorage.setItem("username", encryptUsername);
+               localStorage.setItem("userid", encryptUserId);
                navigate("/");
             });
          }

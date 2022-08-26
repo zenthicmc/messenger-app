@@ -1,14 +1,23 @@
 import Navbar from "../Components/Navbar";
 import "../Assets/Css/Chat.css";
+import "../Assets/Css/Profile.css";
 import Contact from "../Components/Contact";
-import Message from "../Components/Message";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Message from "../Components/Message";
+import { useLoadingContext } from "react-router-loading";
 
 const Chat = () => {
+   const loadingContext = useLoadingContext();
    const [users , setUsers] = useState([]);
    const [keyword , setKeyword] = useState("");
-   const [clickedUser , setClickedUser] = useState('Select a user');
+   const [clickedUser , setClickedUser] = useState(false);
+   const navigate = useNavigate();
+
+   setTimeout(() => {
+      loadingContext.done();
+   }, 500);
 
    useEffect(() => {
       const getUsers = async () => {
@@ -21,8 +30,12 @@ const Chat = () => {
 
    const handleClick = async (e) => {
       await axios.get(`https://dummyjson.com/users/${e.currentTarget.id}`).then((res) => {
-         setClickedUser(`${res.data.firstName} ${res.data.lastName}`);
+         setClickedUser(res.data);
       });
+   }
+
+   const handleForm = (e) => {
+      e.preventDefault();
    }
 
    return (
@@ -46,14 +59,33 @@ const Chat = () => {
                </div>
                <div className="w-70">
                   <div className="row justify-content-between">
-                     <div className="w-auto bg-white shadow rounded-5 px-4 py-2">
-                        <p className="text-center mt-1">{clickedUser}</p>
-                     </div>
-                     <div className="w-auto bg-white shadow rounded-5 px-4 py-2">
-                        <button className="fw-bold t-secondary text-center bg-white border-0 p-1">
-                           Clear Chat
-                        </button>
-                     </div>
+                     {clickedUser ? (
+                        <>
+                           <button className="w-auto bg-white shadow rounded-5 px-4 border-0">
+                              <p className="text-center">
+                                 {clickedUser.firstName + clickedUser.lastName}
+                              </p>
+                           </button>
+                           <div className="w-auto bg-white shadow rounded-5 px-4 py-2">
+                              <button className="fw-bold t-secondary text-center bg-white border-0 p-1">
+                                 Clear Chat
+                              </button>
+                           </div>
+                        </>
+                     ) : (
+                        <>
+                           <div className="w-auto bg-white shadow rounded-5 px-4 py-2">
+                              <p className="text-center mt-1">
+                                 No user selected
+                              </p>
+                           </div>
+                           <div className="w-auto bg-white shadow rounded-5 px-4 py-2">
+                              <button className="fw-bold t-secondary text-center bg-white border-0 p-1">
+                                 Clear Chat
+                              </button>
+                           </div>
+                        </>
+                     )}
                   </div>
                </div>
             </div>
@@ -81,18 +113,30 @@ const Chat = () => {
                         sender="true"
                         value="Lorem Ipsum is simply dummy text"
                      />
-                     <Message value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever" />
+                     <Message
+                        img={clickedUser.image}
+                        value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever"
+                     />
                      <Message
                         sender="true"
                         value="Lorem Ipsum is simply dummy text"
                      />
-                     <Message value="Lorem Ipsum is simply dummy text" />
+                     <Message
+                        img={clickedUser.image}
+                        value="Lorem Ipsum is simply dummy text"
+                     />
                      <Message
                         sender="true"
                         value="Lorem Ipsum is simply dummy text"
                      />
-                     <Message value="Lorem Ipsum is simply dummy text" />
-                     <Message value="Lorem Ipsum is simply dummy text" />
+                     <Message
+                        img={clickedUser.image}
+                        value="Lorem Ipsum is simply dummy text"
+                     />
+                     <Message
+                        img={clickedUser.image}
+                        value="Lorem Ipsum is simply dummy text"
+                     />
                      <Message
                         sender="true"
                         value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries"
@@ -100,7 +144,10 @@ const Chat = () => {
                   </div>
                   <div className="input-area w-100">
                      <div className="col-lg-12 mt-2">
-                        <form className="w-100 d-flex justify-content-between">
+                        <form
+                           className="w-100 d-flex justify-content-between"
+                           onSubmit={handleForm}
+                        >
                            <button
                               type="button"
                               className="b-secondary rounded-5 border-0"

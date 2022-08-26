@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "^1.4.4",
+    "@reduxjs/toolkit": "^1.8.4",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
@@ -15,6 +16,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.3.0",
+    "react-router-loading": "^1.0.0",
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.5",
     "sweetalert2": "^11.4.19",

@@ -1,0 +1,33 @@
+h4,h5 {
+	padding: 0;
+	margin: 0;
+	letter-spacing: 0.8px;
+}
+
+p {
+	padding: 0;
+	margin: 0;
+}
+
+.clicked-profile {
+	width: 28%;
+	height: auto;
+}
+
+.profile-button-group {
+	width: 30%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	margin: auto;
+}
+
+.profile-button {
+   width: auto;
+   height: 45px;
+   padding: 10px 40px;
+}
+
+.profile-button:hover {
+   opacity: 0.94;
+}
