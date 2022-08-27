@@ -91,17 +91,17 @@ exports.update = async (req, res) => {
             lastname: (req.body.lastname) ? req.body.lastname : oldData.lastname,
             email: (req.body.email) ? req.body.email : oldData.email,
             password: await bcrypt.hash(req.body.password, saltrounds),
-            image: (req.body.image) ? req.body.image : oldData.image,
+            image: req.body.image,
             online: false,
             status: (req.body.status) ? req.body.status : oldData.status,
             token: (req.body.token) ? req.body.token : oldData.token
         }
 
-        await User.updateOne({ username: req.params.username }, {
+        await User.updateOne({ _id: req.params.id }, {
             $set: data
         }).then(() => res.json({ status: 'success', message: 'User updated', data: { username: req.params.username } }));
     } catch (error) {
-        return res.json({ status: 'fail', message: 'Unable to update user' });
+        return res.json({ status: "fail", message: "Unable to update user" });
     }
 }
 
