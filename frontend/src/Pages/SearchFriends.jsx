@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import axios from "../Api/axios";
 import { useLoadingContext } from "react-router-loading";
 
-
 const SearchFriends = () => {
 	const loadingContext = useLoadingContext();
 	const [keyword, setKeyword] = useState("");
