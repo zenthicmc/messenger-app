@@ -15,7 +15,7 @@ const SearchFriends = () => {
 
 	useEffect(() => {
 		const getUsers = async () => {
-         await axios.get(`https://dummyjson.com/users/search?q=${keyword}`).then((res) => {
+         await axios.get(`/api/user?search=${keyword}`).then((res) => {
             setUsers(res.data.users); 
          });
       }
@@ -61,7 +61,7 @@ const SearchFriends = () => {
                            />
                         </div>
                         <div class="col-md-5 mt-3 py-3">
-                           <p className="fw-bold">{`${user.firstName} ${user.lastName}`}</p>
+                           <p className="fw-bold">{`${user.firstname} ${user.lastname}`}</p>
                            <p className="t-dark">@{user.username}</p>
                         </div>
                         <div class="col-md-4 py-3">

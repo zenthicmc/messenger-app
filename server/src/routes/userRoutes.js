@@ -1,5 +1,4 @@
 const express = require('express')
-require('express-router-group')
 const router = express.Router();
 const userController = require('../controllers/userController');
 const userExistsValidator = require('../middlewares/validators/userExistsValidator');
@@ -12,8 +11,6 @@ const loginValidator = require('../middlewares/validators/loginValidator');
 // })
 
 // USER API GROUP
-router.group('/api/user', router => {
-
     router.get('/', userController.index);
 
     // Validation
@@ -40,6 +37,11 @@ router.group('/api/user', router => {
     router.post('/refresh', refreshToken.refresh)
 
     router.post('/logout', loginController.logout)
-});
 
-module.exports = { router }
+
+// CHAT API GROUP
+// router.group('api/user/chat', router => {
+    
+// })
+
+module.exports = router
