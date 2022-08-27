@@ -5,17 +5,20 @@ const saltrounds = 10;
 
 exports.index = async (req, res) => {
 
-    const keyword = req.query.search ? {
+    const keyword = req.query.search 
+    ? {
         $or: [
-            { name: { $regex: req.query.search, $options: "i" } },
+            { username: { $regex: req.query.search, $options: "i" } },
+            { firstname: { $regex: req.query.search, $options: "i" } },
+            { lastname: { $regex: req.query.search, $options: "i" } },
             { email: { $regex: req.query.search, $options: "i" } }
         ]
     } : {};
 
-    const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
+    const users = await User.find(keyword);
 
     return res.json({
-        data: users,
+        users: users,
         status: "success",
         messages: "Fetch data success",
     });

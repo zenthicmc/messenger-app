@@ -18,7 +18,7 @@ const loginValidator = require('../middlewares/validators/loginValidator');
 
     router.get('/email/:email', userExistsValidator.validateEmail);
 
-    router.get('/verifytoken', loginValidator.verifyToken);
+    router.post('/verifytoken', loginValidator.verifyToken);
 
     // Controller
     router.get('/:id', userController.details);
