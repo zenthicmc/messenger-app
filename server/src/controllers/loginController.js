@@ -28,10 +28,10 @@ exports.login = async (req, res) => {
 
         await User.updateOne({ username }, { $set: { token: refreshToken } });
 
-        res.cookie('refreshToken', refreshToken,{
-            httpOnly: true,
-            maxAge: 24 * 60 * 60 * 1000
-        });
+        // res.cookie('refreshToken', refreshToken,{
+        //     httpOnly: true,
+        //     maxAge: 24 * 60 * 60 * 1000
+        // });
         
         return res.json({
             status: "success",
