@@ -32,8 +32,6 @@ const accessChat = async (req, res) => {
             users: [id, userId],
         };
 
-        console.log(chatData);
-
         try {
             const createdChat = await Chat.create(chatData);
 
