@@ -2,7 +2,7 @@ import Navbar from "../Components/Navbar";
 import "../Assets/Css/Chat.css";
 import "../Assets/Css/Profile.css";
 import Contact from "../Components/Contact";
-import axios from "axios";
+import axios from "../Api/axios"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Message from "../Components/Message";
@@ -21,8 +21,9 @@ const Chat = () => {
 
    useEffect(() => {
       const getUsers = async () => {
-         await axios.get(`https://dummyjson.com/users/search?q=${keyword}`).then((res) => {
-            setUsers(res.data.users); 
+         await axios.get(`/api/chat/630915ca8bfe4d74d0ff9cda`).then((res) => {
+            console.log(res.data.contacts)
+            setUsers(res.data.contacts[0].users)
          });
       }
       getUsers();
@@ -100,9 +101,9 @@ const Chat = () => {
                      >
                         <Contact
                            img={user.image}
-                           name={`${user.firstName} ${user.lastName}`}
-                           msg={user.address.address}
-                           time={user.bank.cardExpire}
+                           name={`${user.firstname} ${user.lastname}`}
+                           msg="Lorem Ipsum Dolor"
+                           time="19:45"
                         />
                      </div>
                   ))}
