@@ -14,6 +14,11 @@ p {
 	height: auto;
 }
 
+.profile-image {
+	width: 100%;
+	height: auto;
+}
+
 .profile-button-group {
 	width: 30%;
 	display: flex;
@@ -30,4 +35,44 @@ p {
 
 .profile-button:hover {
    opacity: 0.94;
+}
+
+@media screen and (max-width: 1200px) {
+	.profile-button-group {
+		width: 40%;
+	}
+}
+
+@media screen and (max-width: 1024px) {
+	.profile-button-group {
+		width: 50%;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	.profile-button-group {
+		width: 80%;
+	}
+
+	.profile-button {
+		width: auto;
+		height: 45px;
+		padding: 10px 20px;
+	}
+
+	.container {
+		width: 90%;
+	}
+
+	.profile-image {
+		width: 50%;
+		height: auto;
+	}
+
+	.profile-text {
+		width: 100%;
+		height: auto;
+		display: flex;
+		justify-content: center;
+	}
 }
