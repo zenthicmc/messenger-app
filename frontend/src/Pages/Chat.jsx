@@ -2,42 +2,53 @@ import Navbar from "../Components/Navbar";
 import "../Assets/Css/Chat.css";
 import "../Assets/Css/Profile.css";
 import Contact from "../Components/Contact";
-import axios from "../Api/axios"
+import axios from "../Api/axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Message from "../Components/Message";
 import { useLoadingContext } from "react-router-loading";
+import CryptoJS from "crypto-js";
 
 const Chat = () => {
    const loadingContext = useLoadingContext();
-   const [users , setUsers] = useState([]);
-   const [keyword , setKeyword] = useState("");
-   const [clickedUser , setClickedUser] = useState(false);
+   const [users, setUsers] = useState([]);
+   const [keyword, setKeyword] = useState("");
+   const [clickedUser, setClickedUser] = useState(false);
    const navigate = useNavigate();
 
    setTimeout(() => {
       loadingContext.done();
    }, 500);
 
+   const UserID = () => {
+      if (localStorage.getItem("userid")) {
+         return CryptoJS.AES.decrypt(
+            localStorage.getItem("userid"),
+            process.env.REACT_APP_HASH_KEY
+         ).toString(CryptoJS.enc.Utf8);
+      } else {
+         return false;
+      }
+   };
+
    useEffect(() => {
       const getUsers = async () => {
-         await axios.get(`/api/chat/630915ca8bfe4d74d0ff9cda`).then((res) => {
-            console.log(res.data.contacts)
-            setUsers(res.data.contacts[0].users)
+         await axios.get(`/api/chat/${UserID()}`).then((res) => {
+            setUsers(res.data.contacts);
          });
-      }
+      };
       getUsers();
    }, [keyword]);
 
    const handleClick = async (e) => {
-      await axios.get(`https://dummyjson.com/users/${e.currentTarget.id}`).then((res) => {
-         setClickedUser(res.data);
+      await axios.get(`api/user/${e.currentTarget.id}`).then((res) => {
+         setClickedUser(res.data.data);
       });
-   }
+   };
 
    const handleForm = (e) => {
       e.preventDefault();
-   }
+   };
 
    return (
       <div>
@@ -64,7 +75,9 @@ const Chat = () => {
                         <>
                            <button className="w-auto bg-white shadow rounded-5 px-4 border-0">
                               <p className="text-center">
-                                 {clickedUser.firstName + clickedUser.lastName}
+                                 {clickedUser.firstname +
+                                    " " +
+                                    clickedUser.lastname}
                               </p>
                            </button>
                            <div className="w-auto bg-white shadow rounded-5 px-4 py-2">
@@ -92,21 +105,37 @@ const Chat = () => {
             </div>
             <div className="row justify-content-between mt-3">
                <div className="contacts w-35 h-95 bg-white shadow rounded-5 p-3">
-                  {users.map((user) => (
-                     <div
-                        key={user.id}
-                        id={user.id}
-                        className="col"
-                        onClick={handleClick}
-                     >
-                        <Contact
-                           img={user.image}
-                           name={`${user.firstname} ${user.lastname}`}
-                           msg="Lorem Ipsum Dolor"
-                           time="19:45"
-                        />
-                     </div>
-                  ))}
+                  {users.map((user) =>
+                     user.users[0]._id === `${UserID()}` ? (
+                        <div
+                           key={user.users[1]._id}
+                           id={user.users[1]._id}
+                           className="col"
+                           onClick={handleClick}
+                        >
+                           <Contact
+                              img={user.users[1].image}
+                              name={`${user.users[1].firstname} ${user.users[1].lastname}`}
+                              msg="Lorem Ipsum Dolor"
+                              time="19:45"
+                           />
+                        </div>
+                     ) : (
+                        <div
+                           key={user.users[0]._id}
+                           id={user.users[0]._id}
+                           className="col"
+                           onClick={handleClick}
+                        >
+                           <Contact
+                              img={user.users[0].image}
+                              name={`${user.users[0].firstname} ${user.users[0].lastname}`}
+                              msg="Lorem Ipsum Dolor"
+                              time="19:45"
+                           />
+                        </div>
+                     )
+                  )}
                </div>
                <div className="w-70 h-95 bg-white shadow rounded-5 position-relative p-4">
                   <div className="messages d-flex flex-column">

@@ -1,6 +1,5 @@
 import "../Assets/Css/Message.css";
 import { Link } from "react-router-dom";
-
 const Message = (props) => {
    return (
       <div>
@@ -17,7 +16,7 @@ const Message = (props) => {
                      className="border-0 bg-white"
                   >
                      <img
-                        src={props.img ? props.img : "https://via.placeholder.com/150"}
+                        src="https://via.placeholder.com/150"
                         className="profile rounded-circle"
                         alt="profile"
                      />
