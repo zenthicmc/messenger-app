@@ -1,28 +1,42 @@
 import Navbar from "../Components/Navbar";
-import axios from "axios";
+import axios from "../Api/axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ImgSelectUser from '../Assets/Img/selectUser.png';
 import { useLocation } from "react-router-dom";
 import { useLoadingContext } from "react-router-loading";
+import { storage } from "../Utils/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const UserInfo = () => {
    const loadingContext = useLoadingContext();
    const location = useLocation();
    const { id } = location.state;
    const [user, setUser] = useState([]);
+   const [profile, setProfile] = useState([]);
 	const navigate = useNavigate();
 
    setTimeout(() => {
       loadingContext.done();
    }, 500);
 
+   const getDownloadImage = async (img) => {
+      await getDownloadURL(ref(storage, `profile/${img}`))
+         .then((url) => {
+            setProfile(url);
+         })
+         .catch((error) => {
+            console.log(error);
+         });
+   };
+
    useEffect(() => {
       if(id) {
          const getUser = async () => {
-            const response = await axios.get(`https://dummyjson.com/users/${id}`);
-            setUser(response.data);
+            const response = await axios.get(`/api/user/${id}`);
+            setUser(response.data.data);
+            getDownloadImage(response.data.data.image);
          }
          getUser();
       } else {
@@ -39,29 +53,32 @@ const UserInfo = () => {
                   {user ? (
                      <>
                         <img
-                           src={user.image}
+                           src={profile}
                            alt="profile"
-                           className="clicked-profile rounded-circle m-auto d-table"
+                           className="clicked-profile rounded-circle m-auto mt-3 d-table"
                         />
                         <div className="mt-4">
                            <h5 className="fw-bold text-center spacing-3">
-                              {user.firstName} {user.lastName}
+                              {user.firstname} {user.lastname}
                            </h5>
                            <p className="text-center">@{user.username}</p>
                            <div className="w-75 mt-3 m-auto">
                               <p className="text-center t-dark">
-                                 Lorem Ipsum is simply dummy text of the
-                                 printing and typesetting industry. Lorem Ipsum
-                                 has been the industry's standard dummy text
-                                 ever{" "}
+                                {user.status ? user.status : "No Status"}
                               </p>
                            </div>
                         </div>
                         <div className="profile-button-group mt-4 mb-5">
-                           <Link to="/chat" className="profile-button b-secondary text-white rounded-3">
+                           <Link
+                              to="/chat"
+                              className="profile-button b-secondary text-white rounded-3"
+                           >
                               Chat Now
                            </Link>
-                           <Link to="/" className="profile-button b-primary text-white rounded-3">
+                           <Link
+                              to="/"
+                              className="profile-button b-primary text-white rounded-3"
+                           >
                               Add Friend
                            </Link>
                         </div>
