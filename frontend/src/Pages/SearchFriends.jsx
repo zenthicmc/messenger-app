@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import axios from "../Api/axios";
 import { useLoadingContext } from "react-router-loading";
 import { storage } from "../Utils/firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, getDownloadURL } from "firebase/storage";
+import CryptoJS from "crypto-js";
 
 const SearchFriends = () => {
 	const loadingContext = useLoadingContext();
@@ -35,6 +36,26 @@ const SearchFriends = () => {
       }
       getUsers();
 	}, [keyword])
+
+   const UserID = () => {
+      if (localStorage.getItem("userid")) {
+         return CryptoJS.AES.decrypt(
+            localStorage.getItem("userid"),
+            process.env.REACT_APP_HASH_KEY
+         ).toString(CryptoJS.enc.Utf8);
+      } else {
+         return false;
+      }
+   };
+
+   const handleFriend = async (userid) => {
+      const loggedId = UserID();
+      const response = await axios.post(`/api/chat/`, {
+         id: loggedId,
+         userId: userid,
+      });
+      console.log(response);
+   }
 
 	return (
       <div>
@@ -71,21 +92,21 @@ const SearchFriends = () => {
                            <img
                               src={getDownloadImage(user.image)}
                               alt="profile"
-                              className="w-100 m-auto d-table rounded-circle"
+                              className="profile-image m-auto d-table rounded-circle"
                               id={user.image}
                            />
                         </div>
                         <div className="col-md-5 mt-3 py-3">
-                           <p className="fw-bold">{`${user.firstname} ${user.lastname}`}</p>
-                           <p className="t-dark">@{user.username}</p>
+                           <p className="fw-bold profile-text">{`${user.firstname} ${user.lastname}`}</p>
+                           <p className="t-dark profile-text">@{user.username}</p>
                         </div>
                         <div className="col-md-4 py-3">
                            <Link to={`/user/${user.username}`} state={{ id: user._id }} className="btn w-100 button-secondary text-white no-hover">
                               <p style={{ fontSize: '14px' }}>See More</p>
                            </Link>
-                           <Link to="#" className="btn w-100 button-primary text-white mt-2 no-hover">
+                           <button onClick={() => handleFriend(user._id)} id={user._id} className="btn w-100 button-primary text-white mt-2 no-hover">
                               <p style={{ fontSize: '14px' }}>Add Friend</p>
-                           </Link>
+                           </button>
                         </div>
                      </div>
                   </div>

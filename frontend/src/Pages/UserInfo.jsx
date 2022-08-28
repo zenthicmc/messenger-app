@@ -12,7 +12,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const UserInfo = () => {
    const loadingContext = useLoadingContext();
    const location = useLocation();
-   const { id } = location.state;
+   const { id } = location.state ? location.state : {};
    const [user, setUser] = useState([]);
    const [profile, setProfile] = useState([]);
 	const navigate = useNavigate();

@@ -1,8 +1,22 @@
+import { storage } from "../Utils/firebase";
+import { ref, getDownloadURL } from "firebase/storage";
+
 const Contact = (props) => {
+   const getDownloadImage = (name) => {
+      getDownloadURL(ref(storage, `profile/${name}`))
+         .then((url) => {
+            const img = document.getElementById(name);
+            img.setAttribute("src", url);
+         })
+         .catch((error) => {
+            console.log(error);
+         });
+   };
+
    return (
       <div>
          <div className="contact w-100 py-2 px-3 mt-1 d-flex">
-            <img src={props.img} className="profile" alt="user-img" />
+            <img src={getDownloadImage(props.img)} id={props.img} className="profile" alt="user-img" />
             <div className="col-sm ms-3 mt-1">
                <p>{props.name}</p>
                <p className="t-dark">{props.msg}</p>
@@ -19,4 +33,3 @@ const Contact = (props) => {
 };
 
 export default Contact;
-
