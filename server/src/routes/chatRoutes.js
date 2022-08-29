@@ -1,7 +1,5 @@
 const express = require('express')
 const router = express.Router();
-require('express-router-group')
-const {verifyToken} = require("../middlewares/validators/loginValidator");
 const {accessChat, fetchChat} = require("../controllers/chatController")
 
 router.post('/', accessChat);

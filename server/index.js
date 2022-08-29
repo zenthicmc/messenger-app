@@ -8,9 +8,10 @@ const cookieParser = require('cookie-parser')
 require('dotenv').config();
 const port = process.env.PORT || 3000
 
-// ROUTES
+// IMPORT ROUTES
 const userRoutes = require("./src/routes/userRoutes");
 const chatRoutes = require("./src/routes/chatRoutes");
+const messageRoutes = require("./src/routes/messageRoutes");
 
 // for parsing application/json
 app.use(express.json());
@@ -18,11 +19,16 @@ app.use(express.json());
 // for parsing application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: false }));
 
+// Configuration
 app.use(express.static('public'));
 
 app.use(morgan('dev'))
 
-app.use(cors());
+app.use(cors({
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    allowedHeaders: "Content-Type, Authorization, X-Requested-With, Accept"
+}));
 
 app.use(cookieParser());
 
@@ -34,22 +40,18 @@ app.use(session({
 
 app.use(express.static('public'));
 
-app.use("/api/user", userRoutes, cors({
-    origin: "*",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    allowedHeaders: "Content-Type, Authorization, X-Requested-With, Accept"
-}));
+// ROUTES
+app.use("/api/user", userRoutes);
 
-app.use("/api/chat", chatRoutes, cors({
-    origin: "*",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    allowedHeaders: "Content-Type, Authorization, X-Requested-With, Accept"
-}))
+app.use("/api/chat", chatRoutes);
+
+app.use("/api/message", messageRoutes);
 
 app.use((req, res) => {
     res.status(404).send('<h1>404 Not Found</h1>');
 })
 
+// Server
 app.listen(port, () => {
     console.log(`Server is running on ${process.env.URL}:${process.env.PORT}`)
 })

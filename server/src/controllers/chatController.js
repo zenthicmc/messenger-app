@@ -2,7 +2,7 @@ require('../../config/database');
 const Chat = require('../models/chatModel');
 const User = require('../models/User');
 
-const accessChat = async (req, res) => {
+exports.accessChat = async (req, res) => {
     const { userId, id } = req.body;
 
     if (!userId) {
@@ -32,8 +32,6 @@ const accessChat = async (req, res) => {
             users: [id, userId],
         };
 
-        console.log(chatData);
-
         try {
             const createdChat = await Chat.create(chatData);
 
@@ -46,7 +44,7 @@ const accessChat = async (req, res) => {
     }
 };
 
-const fetchChat = async (req, res) => {
+exports.fetchChat = async (req, res) => {
     try {
         Chat.find({ users: { $elemMatch: { $eq: req.params.id } } })
             .populate("users", "-password")
@@ -67,9 +65,3 @@ const fetchChat = async (req, res) => {
         res.json(error)
     }
 }
-
-// const createGroupchat= async (req, res) => {
-
-// }
-
-module.exports = { accessChat, fetchChat }
