@@ -122,7 +122,7 @@ const Chat = () => {
    };
 
    return (
-      <div>
+      <div onClick={() => showEmojis && setShowEmojis(false)}>
          <Navbar />
          <div className="container mt-4 mb-5">
             <div className="row justify-content-between">
