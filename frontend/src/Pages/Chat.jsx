@@ -22,7 +22,7 @@ const Chat = () => {
    const [messages, setMessages] = useState([]);
    const [currentChat, setCurrentChat] = useState(null);
    const [showEmojis, setShowEmojis] = useState(false);
-   const socket = io(`http://127.0.0.1:5000`);
+   const socket = io(`${process.env.REACT_APP_BACKEND_URL}`);
 
   const addEmoji = (e, emojiObject) => {
       setContent(content + emojiObject.emoji);
@@ -235,7 +235,7 @@ const Chat = () => {
                               sender="true"
                               value={message.content}
                               time={
-                                 <Moment fromNow>{message.createdAt}</Moment>
+                                 <Moment format="hh:mm">{message.createdAt}</Moment>
                               }
                            />
                         ) : (
@@ -244,7 +244,7 @@ const Chat = () => {
                               img={clickedUser.image}
                               value={message.content}
                               time={
-                                 <Moment fromNow>{message.createdAt}</Moment>
+                                 <Moment format="hh:mm">{message.createdAt}</Moment>
                               }
                            />
                         )
