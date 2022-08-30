@@ -34,6 +34,7 @@ exports.details = async (req, res) => {
 
         return res.json({
             data: {
+                id: data._id,
                 username: data.username,
                 firstname: data.firstname,
                 lastname: data.lastname,
