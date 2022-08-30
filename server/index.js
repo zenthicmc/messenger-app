@@ -12,6 +12,7 @@ const port = process.env.PORT || 3000
 const userRoutes = require("./src/routes/userRoutes");
 const chatRoutes = require("./src/routes/chatRoutes");
 const messageRoutes = require("./src/routes/messageRoutes");
+const { socketConf } = require("./src/routes/socketioConfig.js")
 
 // for parsing application/json
 app.use(express.json());
@@ -52,6 +53,16 @@ app.use((req, res) => {
 })
 
 // Server
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`Server is running on ${process.env.URL}:${process.env.PORT}`)
 })
+
+// Socket IO
+const io = require("socket.io")(server, {
+    pingTimeout : 60000,
+    cors : {
+        origin:"http://localhost:3000",
+    },
+});
+
+io.on("connection", socketConf);
