@@ -22,7 +22,7 @@ const Chat = () => {
    const [messages, setMessages] = useState([]);
    const [currentChat, setCurrentChat] = useState(null);
    const [showEmojis, setShowEmojis] = useState(false);
-   const socket = io(`http://127.0.0.1:5000`);
+   const socket = io(`${process.env.REACT_APP_BACKEND_URL}`);
 
   const addEmoji = (e, emojiObject) => {
       setContent(content + emojiObject.emoji);
