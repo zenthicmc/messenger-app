@@ -1,6 +1,10 @@
 import { storage } from "../Utils/firebase";
 import { ref, getDownloadURL } from "firebase/storage";
 
+function truncate(str, no_words) {
+   return str.split(" ").splice(0, no_words).join(" ") + "...";
+}
+
 const Contact = (props) => {
    const getDownloadImage = (name) => {
       getDownloadURL(ref(storage, `profile/${name}`))
@@ -19,7 +23,7 @@ const Contact = (props) => {
             <img src={getDownloadImage(props.img)} id={props.img} className="profile" alt="user-img" />
             <div className="col-sm ms-3 mt-1">
                <p>{props.name}</p>
-               <p className="t-dark">{props.msg}</p>
+               <p className="t-dark">{truncate(props.msg, 3)}</p>
             </div>
             <div className="d-flex flex-column mt-1">
                <span className="t-dark">{props.time}</span>
