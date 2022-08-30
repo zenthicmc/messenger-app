@@ -1,11 +1,6 @@
-<<<<<<< HEAD
 # dependencies
 /node_modules
 /frontend/build
-=======
->>>>>>> parent of fdcffb0... make it better
 /frontend/node_modules
-/frontend/.env.production
-/frontend/.env
 /server/node_modules
-/server/.env
+/.env
