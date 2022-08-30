@@ -4,6 +4,7 @@ const app = express();
 const session = require('express-session')
 const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
+const path = require("path")
 
 require('dotenv').config();
 const port = process.env.PORT || 3000
@@ -48,10 +49,6 @@ app.use("/api/chat", chatRoutes);
 
 app.use("/api/message", messageRoutes);
 
-app.use((req, res) => {
-    res.status(404).send('<h1>404 Not Found</h1>');
-})
-
 // Server
 const server = app.listen(port, () => {
     console.log(`Server is running on ${process.env.URL}:${process.env.PORT}`)
@@ -59,10 +56,30 @@ const server = app.listen(port, () => {
 
 // Socket IO
 const io = require("socket.io")(server, {
-    pingTimeout : 60000,
-    cors : {
+    pingTimeout: 60000,
+    cors: {
         origin: "*",
     },
 });
 
 io.on("connection", socketConf);
+
+
+// ------------- DEPLOYMENT ---------------
+
+const __dirname1 = path.resolve();
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname1, "/frontend/build")));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"));
+    })
+} else {
+    app.get("/", (req, res) => {
+        res.send("API is Running Successfully")
+    });
+}
+
+app.use((req, res) => {
+    res.status(404).send('<h1>404 Not Found</h1>');
+})
