@@ -46,6 +46,8 @@ exports.accessChat = async (req, res) => {
 
 exports.fetchChat = async (req, res) => {
     try {
+        console.log(req.params.id);
+
         Chat.find({ users: { $elemMatch: { $eq: req.params.id } } })
             .populate("users", "-password")
             .populate("latestMessage")
