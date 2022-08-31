@@ -250,7 +250,8 @@ const Chat = () => {
                         )
                      )}
                   </div>
-                  <div className="input-area w-100">
+                  {clickedUser ? (
+                     <div className="input-area w-100">
                      <div className="col-lg-12 mt-2">
                         <form
                            className="w-100 d-flex justify-content-between position-relative"
@@ -306,6 +307,8 @@ const Chat = () => {
                         </form>
                      </div>
                   </div>
+                  ) : (<div></div>) }
+                  
                </div>
             </div>
          </div>
