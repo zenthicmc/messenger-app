@@ -15,8 +15,9 @@ p {
 }
 
 .profile-image {
-	width: 100%;
-	height: auto;
+	width: 70px;
+	height: 70px;
+	border-radius: 50%;
 }
 
 .profile-button-group {
@@ -65,8 +66,8 @@ p {
 	}
 
 	.profile-image {
-		width: 50%;
-		height: auto;
+		width: 150px;
+		height: 150px;
 	}
 
 	.profile-text {

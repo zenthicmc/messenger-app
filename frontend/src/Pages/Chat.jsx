@@ -211,7 +211,7 @@ const Chat = () => {
                            <Contact
                               img={user.users[0].image}
                               name={`${user.users[0].firstname} ${user.users[0].lastname}`}
-                              msg={user.latestMessage.content}
+                              msg={user.latestMessage ? user.latestMessage.content : ""}
                               time={
                                  user.latestMessage ? (
                                     <Moment fromNow>
