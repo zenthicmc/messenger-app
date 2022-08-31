@@ -46,7 +46,10 @@ exports.accessChat = async (req, res) => {
 
 exports.fetchChat = async (req, res) => {
     try {
-        console.log(req.params.id);
+        if (req.params.id == false) {
+            res.clearCookie('refreshToken')
+            return res.redirect(process.env.URL)
+        }
 
         Chat.find({ users: { $elemMatch: { $eq: req.params.id } } })
             .populate("users", "-password")
