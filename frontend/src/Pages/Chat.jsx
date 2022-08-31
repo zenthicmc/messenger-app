@@ -235,7 +235,7 @@ const Chat = () => {
                               sender="true"
                               value={message.content}
                               time={
-                                 <Moment format="hh:mm">{message.createdAt}</Moment>
+                                 <Moment format="HH:mm">{message.createdAt}</Moment>
                               }
                            />
                         ) : (
@@ -244,7 +244,7 @@ const Chat = () => {
                               img={clickedUser.image}
                               value={message.content}
                               time={
-                                 <Moment format="hh:mm">{message.createdAt}</Moment>
+                                 <Moment format="HH:mm">{message.createdAt}</Moment>
                               }
                            />
                         )
