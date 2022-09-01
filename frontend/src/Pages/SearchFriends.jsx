@@ -6,12 +6,14 @@ import { useLoadingContext } from "react-router-loading";
 import { storage } from "../Utils/firebase";
 import { ref, getDownloadURL } from "firebase/storage";
 import CryptoJS from "crypto-js";
+import { useNavigate } from "react-router-dom";
 
 const SearchFriends = () => {
 	const loadingContext = useLoadingContext();
 	const [keyword, setKeyword] = useState("");
 	const [users, setUsers] = useState([]);
    const [image, setImage] = useState("");
+   const navigate = useNavigate();
 
 	setTimeout(() => {
       loadingContext.done();
@@ -50,11 +52,11 @@ const SearchFriends = () => {
 
    const handleFriend = async (userid) => {
       const loggedId = UserID();
-      const response = await axios.post(`/api/chat/`, {
+      await axios.post(`/api/chat/`, {
          id: loggedId,
          userId: userid,
       });
-      console.log(response);
+      navigate(`/chat`);
    }
 
 	return (

@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 import { useLoadingContext } from "react-router-loading";
 import { storage } from "../Utils/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import CryptoJS from "crypto-js";
 
 const UserInfo = () => {
    const loadingContext = useLoadingContext();
@@ -44,6 +45,26 @@ const UserInfo = () => {
       }
    }, []);
 
+   const UserID = () => {
+      if (localStorage.getItem("userid")) {
+         return CryptoJS.AES.decrypt(
+            localStorage.getItem("userid"),
+            process.env.REACT_APP_HASH_KEY
+         ).toString(CryptoJS.enc.Utf8);
+      } else {
+         return false;
+      }
+   };
+
+   const handleFriend = async (userid) => {
+      const loggedId = UserID();
+      await axios.post(`/api/chat/`, {
+         id: loggedId,
+         userId: userid,
+      });
+      navigate(`/chat`);
+   };
+
    return (
       <div>
          <Navbar />
@@ -64,7 +85,7 @@ const UserInfo = () => {
                            <p className="text-center">@{user.username}</p>
                            <div className="w-75 mt-3 m-auto">
                               <p className="text-center t-dark">
-                                {user.status ? user.status : "No Status"}
+                                 {user.status ? user.status : "No Status"}
                               </p>
                            </div>
                         </div>
@@ -75,12 +96,14 @@ const UserInfo = () => {
                            >
                               Chat Now
                            </Link>
-                           <Link
+                           <button
                               to="/"
-                              className="profile-button b-primary text-white rounded-3"
+                              className="profile-button b-primary text-white rounded-3 border-0"
+                              onClick={() => handleFriend(user.id)}
+                              id={user.id}
                            >
                               Add Friend
-                           </Link>
+                           </button>
                         </div>
                      </>
                   ) : (

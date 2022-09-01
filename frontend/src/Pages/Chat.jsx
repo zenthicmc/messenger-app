@@ -4,13 +4,13 @@ import "../Assets/Css/Profile.css";
 import Contact from "../Components/Contact";
 import axios from "../Api/axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Message from "../Components/Message";
 import { useLoadingContext } from "react-router-loading";
 import CryptoJS from "crypto-js";
 import Moment from "react-moment";
 import Picker from "emoji-picker-react";
 import io from "socket.io-client";
+import StartChat from "../Components/StartChat";
 
 const Chat = () => {
    const loadingContext = useLoadingContext();
@@ -252,63 +252,62 @@ const Chat = () => {
                   </div>
                   {clickedUser ? (
                      <div className="input-area w-100">
-                     <div className="col-lg-12 mt-2">
-                        <form
-                           className="w-100 d-flex justify-content-between position-relative"
-                           onSubmit={handleForm}
-                        >
-                           <button
-                              type="button"
-                              className="b-secondary rounded-5 border-0"
-                              style={{ width: "50px" }}
-                              onClick={() => setShowEmojis(!showEmojis)}
+                        <div className="col-lg-12 mt-2">
+                           <form
+                              className="w-100 d-flex justify-content-between position-relative"
+                              onSubmit={handleForm}
                            >
-                              <i
-                                 className="fa-solid fa-face-grin text-white mt-1"
-                                 style={{ fontSize: "22px" }}
-                              ></i>
-                           </button>
-                           {showEmojis && (
-                              <div className="emoji">
-                                 <Picker onEmojiClick={addEmoji} />
-                              </div>
-                           )}
-                           <input
-                              type="text"
-                              name="message"
-                              className="form-input rounded-5 px-4 w-75"
-                              placeholder="Type a message..."
-                              autoComplete="off"
-                              style={{ fontSize: "14px" }}
-                              value={content}
-                              onChange={(e) => setContent(e.target.value)}
-                              required
-                           />
-                           <button
-                              type="button"
-                              className="b-secondary rounded-5 border-0"
-                              style={{ width: "50px" }}
-                           >
-                              <i
-                                 className="fa-solid fa-paperclip text-white mt-1"
-                                 style={{ fontSize: "20px" }}
-                              ></i>
-                           </button>
-                           <button
-                              type="submit"
-                              className="b-primary me-5 rounded-5 border-0"
-                              style={{ width: "50px" }}
-                           >
-                              <i
-                                 className="fa-solid fa-paper-plane text-white mt-1"
-                                 style={{ fontSize: "20px" }}
-                              ></i>
-                           </button>
-                        </form>
+                              <button
+                                 type="button"
+                                 className="b-secondary rounded-5 border-0"
+                                 style={{ width: "50px" }}
+                                 onClick={() => setShowEmojis(!showEmojis)}
+                              >
+                                 <i
+                                    className="fa-solid fa-face-grin text-white mt-1"
+                                    style={{ fontSize: "22px" }}
+                                 ></i>
+                              </button>
+                              {showEmojis && (
+                                 <div className="emoji">
+                                    <Picker onEmojiClick={addEmoji} />
+                                 </div>
+                              )}
+                              <input
+                                 type="text"
+                                 name="message"
+                                 className="form-input rounded-5 px-4 w-75"
+                                 placeholder="Type a message..."
+                                 autoComplete="off"
+                                 style={{ fontSize: "14px" }}
+                                 value={content}
+                                 onChange={(e) => setContent(e.target.value)}
+                                 required
+                              />
+                              <button
+                                 type="button"
+                                 className="b-secondary rounded-5 border-0"
+                                 style={{ width: "50px" }}
+                              >
+                                 <i
+                                    className="fa-solid fa-paperclip text-white mt-1"
+                                    style={{ fontSize: "20px" }}
+                                 ></i>
+                              </button>
+                              <button
+                                 type="submit"
+                                 className="b-primary me-5 rounded-5 border-0"
+                                 style={{ width: "50px" }}
+                              >
+                                 <i
+                                    className="fa-solid fa-paper-plane text-white mt-1"
+                                    style={{ fontSize: "20px" }}
+                                 ></i>
+                              </button>
+                           </form>
+                        </div>
                      </div>
-                  </div>
-                  ) : (<div></div>) }
-                  
+                  ) : (<StartChat />) }
                </div>
             </div>
          </div>
