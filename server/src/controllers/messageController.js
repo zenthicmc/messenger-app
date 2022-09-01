@@ -9,6 +9,11 @@ exports.sendMessage = async (req, res) => {
 
     if (!content || !chatId) return res.json("Invalid data passed into request")
 
+    if (chatId == 'null' || id == 'null') {
+        res.clearCookie('refreshToken')
+        return res.redirect(process.env.URL)
+    }
+
     const newMessage = {
         sender: id,
         content: content,
