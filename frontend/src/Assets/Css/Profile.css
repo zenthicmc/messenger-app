@@ -10,8 +10,8 @@ p {
 }
 
 .clicked-profile {
-	width: 28%;
-	height: auto;
+	width: 350px;
+	height: 350px;
 }
 
 .profile-image {
@@ -75,5 +75,10 @@ p {
 		height: auto;
 		display: flex;
 		justify-content: center;
+	}
+
+	.clicked-profile {
+		width: 200px;
+		height: 200px;
 	}
 }
