@@ -34,7 +34,7 @@ const Register3 = () => {
       e.preventDefault();
       const data = JSON.parse(localStorage.getItem("user"));
       if (!image) {
-         MySwal.fire({
+         return MySwal.fire({
             title: "Error",
             text: "Please upload an image",
             icon: "error",

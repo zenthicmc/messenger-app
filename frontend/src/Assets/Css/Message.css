@@ -1,7 +1,7 @@
 .message-sender {
 	width: auto;
 	float: right;
-	padding: 15px 55px 15px 25px;
+	padding: 15px 50px 15px 25px;
 	background-color: #3BA58A;
 	font-size: 14px;
 	border-radius: 30px 0px 30px 30px;
@@ -18,13 +18,13 @@
 	right: 0;
 	bottom: 0;
 	padding: 15px;
-	font-size: 13px;
+	font-size: 10px;
 }
 
 .message-receiver {
 	width: auto;
 	float: left;
-	padding: 15px 55px 15px 25px;
+	padding: 15px 50px 15px 25px;
 	background-color: #F5F7FB;
 	font-size: 14px;
 	border-radius: 0px 30px 30px 30px;
@@ -40,5 +40,5 @@
 	right: 0;
 	bottom: 0;
 	padding: 15px;
-	font-size: 13px;
+	font-size: 10px;
 }

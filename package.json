@@ -1,13 +1,15 @@
 {
     "name": "server-messenger-app",
     "version": "1.0.0",
-    "description": "Backend of Messenger App",
-    "main": "index.js",
+    "description": "Messenger App",
+    "main": "server/index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "nodemon index.js"
+        "dev": "nodemon server/index.js",
+        "start": "node server/index.js",
+        "heroku-postbuild" : "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
     },
-    "author": "Cynchronos",
+    "author": "JDFD Team",
     "license": "MIT",
     "dependencies": {
         "bcrypt": "^5.0.1",
@@ -22,7 +24,8 @@
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^6.3.2",
         "morgan": "^1.10.0",
-        "randomstring": "^1.2.2"
+        "randomstring": "^1.2.2",
+        "socket.io": "^4.5.1"
     },
     "devDependencies": {
         "nodemon": "^2.0.15"

@@ -1,7 +1,7 @@
-import Navbar from '../Components/Navbar';
+import Navbar from "../Components/Navbar";
 
 const Home = () => {
-	return (
+   return (
       <div>
          <Navbar />
          <div className="container mt-4">
@@ -11,6 +11,6 @@ const Home = () => {
          </div>
       </div>
    );
-}
+};
 
 export default Home;

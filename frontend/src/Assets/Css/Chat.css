@@ -7,9 +7,17 @@ p {
 	overflow-y: auto;
 }
 
+/* chrome */
 .contacts::-webkit-scrollbar
 {
 	display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+
+* {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 }
 
 .profile {
@@ -47,4 +55,44 @@ p {
 	bottom: 0;
 	height: 80px;
 	width: auto;
+}
+
+.emoji {
+	position: absolute;
+	bottom: 0;
+}
+
+.start-chat-img {
+	position: absolute;
+	z-index: 1;
+	top: 80px;
+	left: 50%;
+	transform: translate(-50%, 0);
+	height: 250px;
+	width: auto;
+}
+
+.start-chat-text {
+	position: absolute;
+	z-index: 10;
+	top: 55%;
+	left: 50%;
+	transform: translate(-50%, 50%);
+}
+
+@media only screen and (max-width: 768px) {
+	.start-chat-img {
+		display: none;
+	}
+
+	.start-chat-text {
+		position: absolute;
+		z-index: 1;
+		top: 90px;
+		left: 50%;
+		transform: translate(-50%, 0);
+		height: 250px;
+		width: auto;
+	}
+
 }

@@ -4,7 +4,7 @@
 }
 
 .t-dark {
-   color: #555555;
+   color: #505050;
 }
 
 .b-primary {
@@ -101,4 +101,34 @@
 
 .h-95 {
    height: 550px;
+}
+
+.padding {
+   padding: 10px;
+}
+
+.button-primary {
+   background-color: var(--color-primary);
+}
+
+.button-secondary {
+   background-color: var(--color-secondary);
+}
+
+.button-secondary:hover {
+   opacity: 0.88;
+   background-color: var(--color-secondary);
+}
+
+.button-primary:hover {
+   opacity: 0.88;
+   background-color: var(--color-primary);
+}
+
+.button-primary:focus {
+   background-color: var(--color-primary);
+}
+
+.button-secondary:focus {
+   background-color: var(--color-secondary);
 }

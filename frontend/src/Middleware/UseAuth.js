@@ -54,8 +54,8 @@ const VerifyToken = () => {
 				const refresh = cookies.session_ga ? await CheckRefreshToken(cookies.session_ga) : ClearToken();
 				if (refresh.data.status === "success") {
                setAuth(true);
-               setCookie("session", access.data.data.accessToken,{ path: "/" });
-               console.log("refresh token success");
+               setCookie("session", refresh.data.data.accessToken, { path: "/" });
+               console.log("refresh token valid");
             } else {
 					setAuth(false);
               	removeCookie("session");

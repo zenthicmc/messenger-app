@@ -1,5 +1,7 @@
+# dependencies
+/node_modules
+/frontend/build
 /frontend/node_modules
-/frontend/.env.production
-/frontend/.env
 /server/node_modules
-/server/.env
+/.env
+server/.env
