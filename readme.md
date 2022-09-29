@@ -7,6 +7,7 @@ A Web Application To Chat With People Online
   <li><a href="https://expressjs.com/">Express JS</a></li>
   <li><a href="https://reactjs.org/">React JS</a></li>
   <li><a href="https://getbootstrap.com/">Bootstrap 5</a></li>
+  <li><a href="https://firebase.google.com/docs/storage">Firebase Storage</a></li>
 </ul>
 
 # Screenshots
